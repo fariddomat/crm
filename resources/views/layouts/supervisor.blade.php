@@ -14,7 +14,7 @@
 
      <link rel="stylesheet" href="{{ asset('noty/noty.css') }}">
      <script src="{{ asset('noty/noty.min.js') }}" defer></script>
-     
+
      @yield('styles')
  </head>
 
@@ -65,7 +65,7 @@
          <nav class="sidebar-nav">
              <ul class="nav">
                  <li class="nav-item">
-                     <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> لوحة التحكم </a>
+                     <a class="nav-link" href="{{ route('supervisor.home') }}"><i class="icon-speedometer"></i> لوحة التحكم </a>
                  </li>
 
                  <li class="nav-title">
