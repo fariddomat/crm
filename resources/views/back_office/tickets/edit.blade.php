@@ -33,7 +33,7 @@
                                         @csrf
                                         @method('PUT')
                                         @include('layouts._error')
-
+                                        <input type="hidden" name="back_office_id" value="{{ Auth::id() }}">
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">نوع التذكرة</label>
                                             <div class="col-md-8">
@@ -43,6 +43,8 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @if ($ticket->ticket_classification)
+
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">التصنيف</label>
                                             <div class="col-md-8">
@@ -52,6 +54,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">
                                                 @if ($ticket->ticket_type_id!=3)

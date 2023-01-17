@@ -41,7 +41,11 @@
                                 <tr>
                                     <td>{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</td>
                                     <td>{{ $ticket->ticket_type->name }}</td>
-                                    <td>{{ $ticket->ticket_classification->name }}</td>
+                                    @if ($ticket->ticket_classification)
+                                   <td>{{ $ticket->ticket_classification->name }}</td>
+                                   @else
+                                   <td>-----</td>
+                                   @endif
                                     <td>{{ $ticket->created_at->diffForHumans() }}</td>
                                     <td>@if ($ticket->status=='closed')
                                         {{ $ticket->updated_at->diffForHumans() }}

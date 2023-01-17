@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Ticket;
 use Illuminate\Http\Request;
 use App\Profile;
+use App\TicketAttachment;
 use App\TicketClassification;
 
 class TicketController extends Controller
@@ -70,7 +71,7 @@ class TicketController extends Controller
         $ticket_type_id = $request->ticket_type_id;
         $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
 
-        session()->flash('success','Successfully created !');
+        session()->flash('success', 'Successfully created !');
         return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
     }
 
@@ -94,7 +95,7 @@ class TicketController extends Controller
             $ticket_type_id = $request->ticket_type_id;
             $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
 
-            session()->flash('success','Successfully created !');
+            session()->flash('success', 'Successfully created !');
             return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
         } else {
             abort(404);
@@ -109,13 +110,37 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'ticket_classification_id'=>'required'
-        ]);
-        $ticket=Ticket::create($request->except('attachments'));
+        if ($request->ticket_type_id != 3) {
+            $request->validate([
+                'ticket_classification_id' => 'required'
+            ]);
+        } else {
+            $request->validate([
+                'comments' => 'required'
+            ]);
+        }
 
-        session()->flash('success','Successfully created !');
-        return redirect()->route('agent.tickets.edit',$ticket->id);
+        // 'attachments' => 'required',
+        // 'attachments.*' => 'mimes:doc,pdf,docx,zip'
+
+
+
+        $ticket = Ticket::create($request->except('attachments'));
+        if($request->hasFile('attachments')){
+            $files=$request->file('attachments');
+            foreach ($files as $key=>$file) {
+                // dd($file);
+                $name = $file->hashName().time().'.'.$file->extension();
+                $file->move(public_path().'/files/'.$ticket->id.'/', $name);
+                TicketAttachment::create([
+                    'ticket_id'=>$ticket->id,
+                    'file'=>$name
+                ]);
+            }
+
+        }
+        session()->flash('success', 'Successfully created !');
+        return redirect()->route('agent.tickets.edit', $ticket->id);
     }
 
     /**
@@ -137,15 +162,14 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        $ticket=Ticket::find($id);
+        $ticket = Ticket::find($id);
         if ($ticket) {
-            $profile=Profile::find($ticket->profile->id);
+            $profile = Profile::find($ticket->profile->id);
             // dd($profile->specialization_name);
             return view('agent.tickets.edit', compact('ticket', 'profile'));
         } else {
             abort(404);
         }
-
     }
 
     /**
@@ -157,11 +181,11 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ticket=Ticket::find($id);
+        $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
 
-            session()->flash('success','Successfully updated !');
+            session()->flash('success', 'Successfully updated !');
             return redirect()->route('agent.tickets.index');
         } else {
             abort(404);

@@ -64,7 +64,7 @@
                                         <div class="form-group row">
                                             <label class="col-md-2 form-control-label" for="">المرفقات</label>
                                             <div class="col-md-8">
-                                                <input type="file" multiple id="attachments" name="attachments"
+                                                <input type="file" multiple id="attachments" name="attachments[]"
                                                     class="form-control">
                                             </div>
                                         </div>

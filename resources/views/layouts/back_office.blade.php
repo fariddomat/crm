@@ -14,7 +14,7 @@
 
      <link rel="stylesheet" href="{{ asset('noty/noty.css') }}">
      <script src="{{ asset('noty/noty.min.js') }}" defer></script>
-     
+
      @yield('styles')
  </head>
 
@@ -74,6 +74,9 @@
                  <li class="nav-item nav-dropdown">
                      <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
                      <ul class="nav-dropdown-items">
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('back_office.tickets.index') }}?filter=my"><i class="icon-puzzle"></i> مسندة لي</a>
+                         </li>
                          <li class="nav-item">
                              <a class="nav-link" href="{{ route('back_office.tickets.index') }}"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
                          </li>

@@ -143,7 +143,11 @@
                                         @foreach ($profile->tickets as $ticket)
                                         <tr>
                                             <td>{{ $ticket->ticket_type->name }} </td>
-                                            <td>{{ $ticket->ticket_classification->name }}</td>
+                                            @if ($ticket->ticket_classification)
+                                   <td>{{ $ticket->ticket_classification->name }}</td>
+                                   @else
+                                   <td>-----</td>
+                                   @endif
                                             <td> <span class="tag @if ($ticket->status == 'open')
                                                 tag-success
                                                 @elseif ($ticket->status == 'progress')

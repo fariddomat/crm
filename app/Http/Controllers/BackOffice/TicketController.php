@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -25,8 +26,11 @@ class TicketController extends Controller
         $tickets = '';
         if ($request->filter == 'all') {
             $tickets = Ticket::latest()->paginate(10);
-        } else {
-            $tickets = Ticket::where('status', 'progress')->latest()->paginate(10);
+        } elseif ($request->filter=='my') {
+            $tickets = Ticket::where('back_office_id',Auth::id())->latest()->paginate(10);
+        }else {
+            $tickets = Ticket::where('status','progress')->where('back_office_id',null)->latest()->paginate(10);
+            // dd($tickets);//
         }
         return view('back_office.tickets.index', compact('tickets'));
     }

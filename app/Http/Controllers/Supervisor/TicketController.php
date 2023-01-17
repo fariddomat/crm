@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supervisor;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\User;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -25,7 +26,8 @@ class TicketController extends Controller
         $tickets = '';
         if ($request->filter == 'all') {
             $tickets = Ticket::latest()->paginate(10);
-        } else {
+        }
+        else {
             $tickets = Ticket::where('status', 'progress')->latest()->paginate(10);
         }
         return view('supervisor.tickets.index', compact('tickets'));
@@ -73,10 +75,11 @@ class TicketController extends Controller
     public function edit($id)
     {
         $ticket = Ticket::find($id);
+        $back_offices=  $users=User::whereRole(['back_office'])->get();
         if ($ticket) {
             $profile = Profile::find($ticket->profile->id);
             // dd($profile->specialization_name);
-            return view('supervisor.tickets.edit', compact('ticket', 'profile'));
+            return view('supervisor.tickets.edit', compact('ticket', 'profile','back_offices'));
         } else {
             abort(404);
         }
