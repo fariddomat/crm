@@ -46,7 +46,7 @@
                                         @if ($ticket->ticket_classification)
 
                                         <div class="form-group row">
-                                            <label class="col-md-2 form-control-label" for="">التصنيف</label>
+                                            <label class="col-md-3 form-control-label" for="">التصنيف</label>
                                             <div class="col-md-8">
                                                 <select name="" id="" class="form-control" disabled>
                                                         <option>{{ $ticket->ticket_classification->name }}</option>
@@ -83,6 +83,16 @@
                                             </div>
                                         </div>
                                         @endif
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="">المرفقات</label>
+                                            <div class="col-md-8">
+                                                @foreach ($ticket->ticket_attachments as $index=>$item)
+                                               <a href="/files/{{ $ticket->id }}/{{ $item->file }}"><img class="col-md-4" src="/files/{{ $ticket->id }}/{{ $item->file }}" alt="File {{ $index+1 }}"></a>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">حالة التذكرة</label>
                                             <div class="col-md-8">

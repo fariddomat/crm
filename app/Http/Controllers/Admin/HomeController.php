@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Ticket;
+use App\TicketClassification;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +15,20 @@ class HomeController extends Controller
     {
         $this->middleware(['role:admin']);
     }
-
     public function index()
     {
-        return view('admin.index');
+        $inquiries=Ticket::where('ticket_type_id',1)->count();
+        $inquiries_s=TicketClassification::where('ticket_type_id',1)->withCount('tickets')->get();
+        $inquiries_label=[];
+        $inquiries_count=[];
+        foreach ($inquiries_s as $key => $inquiry) {
+            $inquiries_label[$key]=$inquiry->name;
+            $inquiries_count[$key]=$inquiry->tickets_count;
+        }
+        // dd($inquiries_label);
+        $complaints=Ticket::where('ticket_type_id',2)->count();
+        $suggestions=Ticket::where('ticket_type_id',3)->count();
+        return view('admin.index',compact('inquiries', 'complaints', 'suggestions','inquiries_label','inquiries_count'));
     }
 
     public function myProfile()
@@ -47,7 +59,7 @@ class HomeController extends Controller
             ]);
 
         }
-        Session::flash('success','Successfully updated !');
+        session()->flash('success','Successfully updated !');
         return redirect()->back();
     }
 }

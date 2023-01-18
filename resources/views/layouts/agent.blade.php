@@ -4,6 +4,7 @@
  <head>
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="csrf-token" content="{{ csrf_token() }}" />
      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <title>@yield('title')</title>
      <!-- Icons -->
@@ -14,7 +15,7 @@
 
      <link rel="stylesheet" href="{{ asset('noty/noty.css') }}">
      <script src="{{ asset('noty/noty.min.js') }}" defer></script>
-     
+
      @yield('styles')
  </head>
 
@@ -37,23 +38,23 @@
                          <span>{{ Auth::user()->email }}</span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header text-xs-center">
-                            <strong>Account</strong>
-                        </div>
-                        <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> الملف الشخصي<span
-                                class="tag tag-info">42</span></a>
-                        <div class="dropdown-header text-xs-center">
-                            <strong>Settings</strong>
-                        </div><a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
+                         <div class="dropdown-header text-xs-center">
+                             <strong>Account</strong>
+                         </div>
+                         <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> الملف الشخصي<span
+                                 class="tag tag-info">42</span></a>
+                         <div class="dropdown-header text-xs-center">
+                             <strong>Settings</strong>
+                         </div><a class="dropdown-item" href="{{ route('logout') }}"
+                             onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();">
-                         <i class="fa fa-lock"></i>تسجيل خروج
-                     </a>
+                             <i class="fa fa-lock"></i>تسجيل خروج
+                         </a>
 
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                         @csrf
-                     </form>
-                    </div>
+                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                             @csrf
+                         </form>
+                     </div>
                  </li>
                  <li class="nav-item">
                  </li>
@@ -65,7 +66,8 @@
          <nav class="sidebar-nav">
              <ul class="nav">
                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('agent.home') }}"><i class="icon-speedometer"></i> لوحة التحكم </a>
+                     <a class="nav-link" href="{{ route('agent.home') }}"><i class="icon-speedometer"></i> لوحة التحكم
+                     </a>
                  </li>
 
                  <li class="nav-title">
@@ -73,12 +75,14 @@
                  </li>
 
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('agent.tickets.index') }}"><i class="icon-puzzle"></i> التذاكر </a>
-                </li>
+                     <a class="nav-link" href="{{ route('agent.tickets.index') }}"><i class="icon-puzzle"></i> التذاكر
+                     </a>
+                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('agent.profiles.index') }}"><i class="icon-user"></i> ملفات الزبائن </a>
-                </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href="{{ route('agent.profiles.index') }}"><i class="icon-user"></i> ملفات
+                         الزبائن </a>
+                 </li>
                  <li class="nav-item">
                      <a class="nav-link" href=""><i class="icon-settings"></i> الأعدادات </a>
                  </li>
@@ -87,8 +91,9 @@
                  </li>
 
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('agent.myProfile') }}"><i class="icon-lock"></i> الملف الشخصي </a>
-                </li>
+                     <a class="nav-link" href="{{ route('agent.myProfile') }}"><i class="icon-lock"></i> الملف الشخصي
+                     </a>
+                 </li>
              </ul>
          </nav>
      </div>
@@ -119,7 +124,9 @@
      <script src="{{ asset('dashboard/js/views/main.js') }}"></script>
 
      @extends('layouts._noty')
-     @yield('scripts')
+     {{-- @yield('scripts') --}}
+     @stack('scripts')
+
  </body>
 
  </html>

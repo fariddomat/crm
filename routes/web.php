@@ -74,6 +74,8 @@ Route::get('/clear', function() {
     Route::post('/updateProfile', 'Agent\HomeController@updateProfile')->name('updateProfile');
 
     Route::resource('tickets','Agent\TicketController');
+    Route::post('/specList', 'Agent\TicketController@specList')->name('specList');
+
     Route::post('/tickets/profile', 'Agent\TicketController@profile')->name('tickets.profile');
     Route::post('/tickets/newTicket', 'Agent\TicketController@newTicket')->name('tickets.newTicket');
     Route::post('/tickets/newTicketOldUser', 'Agent\TicketController@newTicketOldUser')->name('tickets.newTicketOldUser');

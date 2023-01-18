@@ -85,7 +85,8 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="hf-email">اسم الكلية</label>
                                         <div class="col-md-8">
-                                            <select name="college_name" id="" class="form-control">
+                                            <select name="college_name" id="college_name" class="form-control">
+                                                <option value="">اختر </option>
                                                 @foreach ($colleges as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -95,10 +96,11 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="hf-email">اسم التخصص</label>
                                         <div class="col-md-8">
-                                            <select name="specialization" id="" class="form-control">
-                                                @foreach ($specializations as $item)
+                                            <select name="specialization" id="spec_name" class="form-control">
+                                                {{-- @foreach ($specializations as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
+                                                @endforeach --}}
+                                                <option value="">اختر كلية</option>
                                             </select>
                                         </div>
                                     </div>
@@ -142,3 +144,35 @@
         <!--/.container-fluid-->
     </main>
 @endsection
+
+
+@push('scripts')
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function() {
+            $('#college_name').on('change', function(e) {
+                var college_id = e.target.value;
+                $.ajax({
+                    url: "{{ route('agent.specList') }}",
+                    type: "POST",
+                    data: {
+                        college_id: college_id
+                    },
+                    success: function(data) {
+                        $('#spec_name').empty();
+                        $.each(data.spec[0].specializations, function(index,
+                            spe) {
+                            $('#spec_name').append('<option value="' +
+                                spe
+                                .id + '">' + spe.name + '</option>');
+                        })
+                    }
+                })
+            });
+        });
+    </script>
+@endpush

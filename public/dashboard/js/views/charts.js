@@ -24,14 +24,14 @@ $(function (){
         ]
     }
 
-    var ctx = document.getElementById('canvas-1');
-    var chart = new Chart(ctx, {
-        type: 'line',
-        data: lineChartData,
-        options: {
-            responsive: true
-        }
-    });
+    // var ctx = document.getElementById('canvas-1');
+    // var chart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: lineChartData,
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
 
     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
@@ -54,14 +54,14 @@ $(function (){
             }
         ]
     }
-    var ctx = document.getElementById('canvas-2');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: barChartData,
-        options: {
-            responsive: true
-        }
-    });
+    // var ctx = document.getElementById('canvas-2');
+    // var chart = new Chart(ctx, {
+    //     type: 'bar',
+    //     data: barChartData,
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
 
     var doughnutData = {
@@ -84,14 +84,14 @@ $(function (){
             ]
         }]
     };
-    var ctx = document.getElementById('canvas-3');
-    var chart = new Chart(ctx, {
-        type: 'doughnut',
-        data: doughnutData,
-        options: {
-            responsive: true
-        }
-    });
+    // var ctx = document.getElementById('canvas-3');
+    // var chart = new Chart(ctx, {
+    //     type: 'doughnut',
+    //     data: doughnutData,
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
 
     var radarChartData = {
@@ -119,24 +119,24 @@ $(function (){
             }
         ]
     };
-    var ctx = document.getElementById('canvas-4');
-    var chart = new Chart(ctx, {
-        type: 'radar',
-        data: radarChartData,
-        options: {
-            responsive: true
-        }
-    });
+    // var ctx = document.getElementById('canvas-4');
+    // var chart = new Chart(ctx, {
+    //     type: 'radar',
+    //     data: radarChartData,
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 
 
     var pieData = {
         labels: [
             'Red',
-            'Green',
+            'suggestions',
             'Yellow'
         ],
         datasets: [{
-            data: [300, 50, 100],
+            data: [300, , 100],
             backgroundColor: [
                 '#FF6384',
                 '#36A2EB',
@@ -185,12 +185,12 @@ $(function (){
             'Blue'
         ]
     };
-    var ctx = document.getElementById('canvas-6');
-    var chart = new Chart(ctx, {
-        type: 'polarArea',
-        data: polarData,
-        options: {
-            responsive: true
-        }
-    });
+    // var ctx = document.getElementById('canvas-6');
+    // var chart = new Chart(ctx, {
+    //     type: 'polarArea',
+    //     data: polarData,
+    //     options: {
+    //         responsive: true
+    //     }
+    // });
 });

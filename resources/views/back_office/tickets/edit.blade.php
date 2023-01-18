@@ -69,6 +69,14 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row">
+                                            <label class="col-md-3 form-control-label" for="">المرفقات</label>
+                                            <div class="col-md-8">
+                                                @foreach ($ticket->ticket_attachments as $index=>$item)
+                                               <a href="/files/{{ $ticket->id }}/{{ $item->file }}"><img class="col-md-4" src="/files/{{ $ticket->id }}/{{ $item->file }}" alt="File {{ $index+1 }}"></a>
+                                                @endforeach
+                                            </div>
+                                        </div>
 
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">حالة التذكرة</label>

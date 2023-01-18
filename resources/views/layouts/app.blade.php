@@ -32,6 +32,8 @@
     <!-- Plugins and scripts required by this views -->
     <!-- Custom scripts required by this view -->
     <script src="{{ asset('dashboard/js/views/main.js') }}"></script>
+    @stack('scripts')
+
 </body>
 
 </html>

@@ -132,10 +132,12 @@
 
      <!-- Plugins and scripts required by this views -->
      <!-- Custom scripts required by this view -->
-     <script src="{{ asset('dashboard/js/views/main.js') }}"></script>
+     {{-- <script src="{{ asset('dashboard/js/views/main.js') }}"></script> --}}
+     {{-- <script src="{{ asset('dashboard/js/views/charts.js') }}"></script> --}}
 
      @extends('layouts._noty')
-     @yield('scripts')
+     {{-- @yield('scripts') --}}
+     @stack('scripts')
  </body>
 
  </html>

@@ -125,7 +125,9 @@
      <script src="{{ asset('dashboard/js/views/main.js') }}"></script>
 
      @extends('layouts._noty')
-     @yield('scripts')
+     {{-- @yield('scripts') --}}
+     @stack('scripts')
+
  </body>
 
  </html>

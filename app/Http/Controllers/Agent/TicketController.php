@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\College;
 use App\Http\Controllers\Controller;
 use App\Ticket;
 use Illuminate\Http\Request;
@@ -201,5 +202,17 @@ class TicketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function specList(Request $request)
+    {
+        $parent_id = $request->college_id;
+        $colleges = College::where('id',$parent_id)
+                              ->with('specializations')
+                              ->get();
+        return response()->json([
+            'spec' => $colleges
+        ]);
+
     }
 }
