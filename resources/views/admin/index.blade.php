@@ -17,29 +17,11 @@
         <div class="container-fluid">
 
             <div class="animated fadeIn">
-               <div class="row" >
-                <div class="col-md-8 offset-md-2">
-                    <div class="card" >
-                        <div class="card-header">
-                            Ticket Type Chart
-                            <div class="card-actions">
-                                <a href="http://www.chartjs.org">
-                                    <small class="text-muted">docs</small>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-block">
-                            <div class="chart-wrapper" >
-                                <canvas id="canvas-5"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" >
+                <div class="row">
                     <div class="col-md-8 offset-md-2">
-                        <div class="card" >
+                        <div class="card">
                             <div class="card-header">
-                               Bar Chart
+                                Ticket Type Chart
                                 <div class="card-actions">
                                     <a href="http://www.chartjs.org">
                                         <small class="text-muted">docs</small>
@@ -47,77 +29,129 @@
                                 </div>
                             </div>
                             <div class="card-block">
-                                <div class="chart-wrapper" >
+                                <div class="chart-wrapper">
+                                    <canvas id="canvas-5"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.row-->
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header">
+                                Inquiries Chart
+                                <div class="card-actions">
+                                    <a href="http://www.chartjs.org">
+                                        <small class="text-muted">docs</small>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                <div class="chart-wrapper">
                                     <canvas id="canvas-2"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-               </div>
-
-                <!--/.row-->
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="card">
+                            <div class="card-header">
+                                Complaints Chart
+                                <div class="card-actions">
+                                    <a href="http://www.chartjs.org">
+                                        <small class="text-muted">docs</small>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                <div class="chart-wrapper">
+                                    <canvas id="canvas-3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
-        <!--/.container-fluid-->
+            <!--/.container-fluid-->
     </main>
-
 @endsection
 
 @push('scripts')
-<script>
+    <script>
 
-var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-    var barChartData = {
-        labels : ['January','February','March','April','May','June','July'],
-        datasets : [
-            {
-                label:'inquiries',
-                backgroundColor : 'rgba(220,220,220,0.5)',
-                borderColor : 'rgba(220,220,220,0.8)',
+        var barChartData = {
+            labels: [<?php echo '"' . implode('","', $inquiries_label) . '"'; ?>],
+            datasets: [{
+                label: 'inquiries',
+                backgroundColor: 'rgba(220,220,220,0.5)',
+                borderColor: 'rgba(220,220,220,0.8)',
                 highlightFill: 'rgba(220,220,220,0.75)',
                 highlightStroke: 'rgba(220,220,220,1)',
-                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+                data: [<?php echo '"' . implode('","', $inquiries_count) . '"'; ?>]
+            }]
+        };
+
+        var ctx = document.getElementById('canvas-2');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true
             }
-        ]
-    }
+        });
 
-    var ctx = document.getElementById('canvas-2');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: barChartData,
-        options: {
-            responsive: true
-        }
-    });
+        var barChartData = {
+            labels: [<?php echo '"' . implode('","', $complaints_label) . '"'; ?>],
+            datasets: [{
+                label: 'complaints',
+                backgroundColor: 'rgba(220,220,220,0.5)',
+                borderColor: 'rgba(220,220,220,0.8)',
+                highlightFill: 'rgba(220,220,220,0.75)',
+                highlightStroke: 'rgba(220,220,220,1)',
+                data: [<?php echo '"' . implode('","', $complaints_count) . '"'; ?>]
+            }]
+        };
 
-    var pieData = {
-        labels: [
-            'complaints',
-            'suggestions',
-            'inquiries'
-        ],
-        datasets: [{
-            data: [{{ $complaints }},{{ $suggestions }} , {{ $inquiries }}],
-            backgroundColor: [
-                '#FF6384',
-                '#36A2EB',
-                '#FFCE56'
+        var ctx = document.getElementById('canvas-3');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: barChartData,
+            options: {
+                responsive: true
+            }
+        });
+
+        var pieData = {
+            labels: [
+                'complaints',
+                'suggestions',
+                'inquiries'
             ],
-            hoverBackgroundColor: [
-                '#00ff00',
-                '#00ff00',
-                '#00ff00'
-            ]
-        }]
-    };
-    var ctx = document.getElementById('canvas-5');
-    var chart = new Chart(ctx, {
-        type: 'pie',
-        data: pieData,
-        options: {
-            responsive: true
-        }
-    });
-</script>
+            datasets: [{
+                data: [{{ $complaints }}, {{ $suggestions }}, {{ $inquiries }}],
+                backgroundColor: [
+                    '#FF6384',
+                    '#36A2EB',
+                    '#FFCE56'
+                ],
+                hoverBackgroundColor: [
+                    '#00ff00',
+                    '#00ff00',
+                    '#00ff00'
+                ]
+            }]
+        };
+        var ctx = document.getElementById('canvas-5');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: pieData,
+            options: {
+                responsive: true
+            }
+        });
+    </script>
 @endpush

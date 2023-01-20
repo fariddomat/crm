@@ -25,10 +25,16 @@ class HomeController extends Controller
             $inquiries_label[$key]=$inquiry->name;
             $inquiries_count[$key]=$inquiry->tickets_count;
         }
-        // dd($inquiries_label);
         $complaints=Ticket::where('ticket_type_id',2)->count();
+        $complaints_s=TicketClassification::where('ticket_type_id',2)->withCount('tickets')->get();
+        $complaints_label=[];
+        $complaints_count=[];
+        foreach ($complaints_s as $key => $inquiry) {
+            $complaints_label[$key]=$inquiry->name;
+            $complaints_count[$key]=$inquiry->tickets_count;
+        }
         $suggestions=Ticket::where('ticket_type_id',3)->count();
-        return view('admin.index',compact('inquiries', 'complaints', 'suggestions','inquiries_label','inquiries_count'));
+        return view('admin.index',compact('inquiries', 'complaints', 'suggestions','inquiries_label','inquiries_count', 'complaints_label', 'complaints_count'));
     }
 
     public function myProfile()

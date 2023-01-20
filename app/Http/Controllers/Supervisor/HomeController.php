@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
+use App\Ticket;
+use App\TicketClassification;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,24 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('supervisor.index');
+        $inquiries=Ticket::where('ticket_type_id',1)->count();
+        $inquiries_s=TicketClassification::where('ticket_type_id',1)->withCount('tickets')->get();
+        $inquiries_label=[];
+        $inquiries_count=[];
+        foreach ($inquiries_s as $key => $inquiry) {
+            $inquiries_label[$key]=$inquiry->name;
+            $inquiries_count[$key]=$inquiry->tickets_count;
+        }
+        $complaints=Ticket::where('ticket_type_id',2)->count();
+        $complaints_s=TicketClassification::where('ticket_type_id',2)->withCount('tickets')->get();
+        $complaints_label=[];
+        $complaints_count=[];
+        foreach ($complaints_s as $key => $inquiry) {
+            $complaints_label[$key]=$inquiry->name;
+            $complaints_count[$key]=$inquiry->tickets_count;
+        }
+        $suggestions=Ticket::where('ticket_type_id',3)->count();
+        return view('supervisor.index',compact('inquiries', 'complaints', 'suggestions','inquiries_label','inquiries_count', 'complaints_label', 'complaints_count'));
     }
     public function myProfile()
     {
