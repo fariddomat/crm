@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use App\Profile;
+use App\Ticket;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('back_office.index');
+        $tickets=Ticket::count();
+        $opendTickets=Ticket::where('status','open')->count();
+        $myTickets=Ticket::where('back_office_id',auth()->id())->count();
+        $customers=Profile::count();
+        return view('back_office.index',compact('tickets', 'opendTickets', 'myTickets', 'customers'));
     }
     public function myProfile()
     {
@@ -46,7 +52,7 @@ class HomeController extends Controller
             ]);
 
         }
-        Session::flash('success','Successfully updated !');
+        session()->flash('success','تم التعديل بنجاح !');
         return redirect()->back();
     }
 }

@@ -83,8 +83,12 @@
                                             <div class="col-md-8">
                                                 <select name="status" id="" class="form-control">
                                                     {{-- <option value="open">مفتوحة</option> --}}
-                                                    <option value="progress">مستمرة</option>
-                                                    <option value="closed">مغلقة</option>
+                                                    <option value="progress" @if ($ticket->status=='progress')
+                                                        selected
+                                                    @endif>مستمرة</option>
+                                                    <option value="closed"  @if ($ticket->status=='closed')
+                                                        selected
+                                                    @endif>مغلقة</option>
                                                 </select>
                                             </div>
                                         </div>

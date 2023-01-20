@@ -65,7 +65,7 @@ class HomeController extends Controller
             ]);
 
         }
-        session()->flash('success','Successfully updated !');
+        Session::flash('success','تم التعديل بنجاح !');
         return redirect()->back();
     }
 }

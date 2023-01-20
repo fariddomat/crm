@@ -56,7 +56,7 @@ class UserController extends Controller
         $request->merge(['password'=>bcrypt($request->password)]);
         $user=User::create($request->all());
         $user->attachRoles([$request->role_id]);
-        session()->flash('success','Successfully Created !');
+        session()->flash('success','تم الحفظ بنجاح !');
         return redirect()->route('admin.users.index');
     }
 
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         $user->update($request->all());
         $user->syncRoles([$request->role_id]);
-        session()->flash('success','Successfully updated !');
+        session()->flash('success','تم التعديل بنجاح !');
         return redirect()->route('admin.users.index');
     }
 
@@ -118,8 +118,7 @@ class UserController extends Controller
     {
         $user=User::find($id);
         $user->delete();
-
-        session()->flash('success','Successfully deleted !');
+        session()->flash('success','تم الحذف بنجاح !');
         return redirect()->route('admin.users.index');
     }
 
@@ -130,8 +129,7 @@ class UserController extends Controller
             $user->update([
                 'active'=>'0'
             ]);
-
-            session()->flash('success','Successfully banned !');
+            session()->flash('success','تم الحظر بنجاح !');
             return redirect()->route('admin.users.index');
         } else
             return response()->json(['message' => 'error'], 404);
@@ -145,7 +143,7 @@ class UserController extends Controller
                 'active'=>'1'
             ]);
 
-            session()->flash('success','Successfully un banned !');
+            session()->flash('success','تم إلغاء الحظر بنجاح !');
             return redirect()->route('admin.users.index');
         } else
             return response()->json(['message' => 'error'], 404);

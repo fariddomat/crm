@@ -46,9 +46,11 @@ class TicketController extends Controller
         $profile = Profile::where('phone_number', $request->phone_number)->get();
         if ($profile->count() > 0) {
             // user already created
+            session()->flash('success','المستخدم موجود مسبقا !');
             return redirect()->route('agent.profiles.edit', $profile->first()->id);
         } else {
             // create new user
+            session()->flash('success','مستخدم جديد');
             return redirect()->route('agent.profiles.create', ['phone_number' => $request->phone_number]);
         }
     }
@@ -71,8 +73,7 @@ class TicketController extends Controller
         $profile_id = $profile->id;
         $ticket_type_id = $request->ticket_type_id;
         $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
-
-        session()->flash('success', 'Successfully created !');
+        session()->flash('success','تم الحفظ بنجاح !');
         return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
     }
 
@@ -96,7 +97,7 @@ class TicketController extends Controller
             $ticket_type_id = $request->ticket_type_id;
             $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
 
-            session()->flash('success', 'Successfully created !');
+            session()->flash('success','تم الحفظ بنجاح !');
             return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
         } else {
             abort(404);
@@ -140,7 +141,7 @@ class TicketController extends Controller
             }
 
         }
-        session()->flash('success', 'Successfully created !');
+        session()->flash('success','تم الحفظ بنجاح !');
         return redirect()->route('agent.tickets.edit', $ticket->id);
     }
 
@@ -185,8 +186,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
-
-            session()->flash('success', 'Successfully updated !');
+            session()->flash('success','تم التعديل بنجاح !');
             return redirect()->route('agent.tickets.index');
         } else {
             abort(404);

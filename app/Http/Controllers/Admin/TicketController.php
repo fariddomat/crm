@@ -94,6 +94,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
+            session()->flash('success','تم التعديل بنجاح !');
             return redirect()->route('admin.tickets.index');
         } else {
             abort(404);
