@@ -23,7 +23,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="search" id="search" autofocus
-                                        value="{{ request()->search }}" aria-describedby="helpId" placeholder="Search">
+                                        value="{{ request()->search }}" aria-describedby="helpId" placeholder="البحث">
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -44,7 +44,7 @@ class User extends Authenticatable
     {
         return ucfirst($value);
     }
-
+    
     public function scopeWhereRole($query,$role_name)
     {
         return $query->whereHas('roles',function($q) use ($role_name){

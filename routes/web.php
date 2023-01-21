@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
+});
+Route::get('/home', function () {
+    return redirect()->route('login');
 });
 
 // Clear cashe route
@@ -87,4 +90,3 @@ Route::get('/clear', function() {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

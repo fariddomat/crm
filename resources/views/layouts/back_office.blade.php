@@ -40,8 +40,7 @@
                         <div class="dropdown-header text-xs-center">
                             <strong>Account</strong>
                         </div>
-                        <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> الملف الشخصي<span
-                                class="tag tag-info">42</span></a>
+                        <a class="dropdown-item" href="{{ route('back_office.myProfile') }}"><i class="fa fa-bell-o"></i> الملف الشخصي</a>
                         <div class="dropdown-header text-xs-center">
                             <strong>Settings</strong>
                         </div><a class="dropdown-item" href="{{ route('logout') }}"

@@ -7,7 +7,7 @@ Login
     <div class="row" style="padding-top: 50px">
         <div class="col-md-8 push-md-2">
             <div class="card" style="margin: 0 auto">
-                <div class="card-header">تسجيل الدخول</div>
+                <div class="card-header">UOA CRM </div>
 
                 <div class="card-body" style="margin: 25px">
                     <div class="row">

@@ -41,8 +41,7 @@
                          <div class="dropdown-header text-xs-center">
                              <strong>Account</strong>
                          </div>
-                         <a class="dropdown-item" href="#"><i class="fa fa-bell-o"></i> الملف الشخصي<span
-                                 class="tag tag-info">42</span></a>
+                         <a class="dropdown-item" href="{{ route('agent.myProfile') }}"><i class="fa fa-bell-o"></i> الملف الشخصي</a>
                          <div class="dropdown-header text-xs-center">
                              <strong>Settings</strong>
                          </div><a class="dropdown-item" href="{{ route('logout') }}"
@@ -82,9 +81,6 @@
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('agent.profiles.index') }}"><i class="icon-user"></i> ملفات
                          الزبائن </a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href=""><i class="icon-settings"></i> الأعدادات </a>
                  </li>
                  <li class="nav-title">
                      Extras
