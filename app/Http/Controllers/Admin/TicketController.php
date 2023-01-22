@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,8 @@ class TicketController extends Controller
      */
     public function index(Request $request)
     {
+
+        $types = TicketType::all();
         $tickets = '';
         if ($request->id) {
             $user = User::find($request->id);
@@ -35,15 +38,19 @@ class TicketController extends Controller
                 abort(404);
             }
 
-            return view('admin.tickets.index', compact('tickets'));
+            return view('admin.tickets.index', compact('tickets', 'types'));
         }
-        if ($request->filter == 'all') {
-            $tickets = Ticket::latest()->paginate(10);
+        if ($request->filter == 'progress') {
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->where('status', 'progress')->latest()->paginate(10);
         } else {
-            $tickets = Ticket::where('status', 'progress')->latest()->paginate(10);
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->latest()->paginate(10);
         }
 
-        return view('admin.tickets.index', compact('tickets'));
+        return view('admin.tickets.index', compact('tickets', 'types'));
     }
 
 

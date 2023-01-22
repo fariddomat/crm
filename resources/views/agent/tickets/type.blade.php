@@ -23,19 +23,21 @@
 
                         <div class="card">
 
-                                <div class="card-header">
-                                    <strong>تفاصيل التذكرة</strong>
-                                </div>
+                            <div class="card-header">
+                                <strong>تفاصيل التذكرة</strong>
+                            </div>
 
-                                <div class="card-block">
-                                    <form action="{{ route('agent.tickets.store') }}" method="post" class="form-horizontal "
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        @include('layouts._error')                  <input type="hidden" name="profile_id" value="{{ $profile_id }}" id="">
-                                        <input type="hidden" name="ticket_type_id" value="{{  $ticket_type_id }}"
-                                            id="">
+                            <div class="card-block">
+                                <form action="{{ route('agent.tickets.store') }}" method="post" class="form-horizontal "
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @include('layouts._error')
+                                    <input type="hidden" name="profile_id" value="{{ old('profile_id', $profile_id) }}"
+                                        id="">
+                                    <input type="hidden" name="ticket_type_id" value="{{ old('ticket_type_id',$ticket_type_id) }}"
+                                        id="">
 
-                                        @if ($ticket_type_id!=3)
+                                    @if ($ticket_type_id != 3)
                                         <div class="form-group row">
                                             <label class="col-md-2 form-control-label" for="">التصنيف</label>
                                             <div class="col-md-8">
@@ -46,42 +48,43 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        @endif
-                                        <div class="form-group row">
-                                            <label class="col-md-2 form-control-label" for="">
-                                                @if ($ticket_type_id!=3)
+                                    @endif
+                                    <div class="form-group row">
+                                        <label class="col-md-2 form-control-label" for="">
+                                            @if ($ticket_type_id != 3)
                                                 التعليق
-                                                @else
+                                            @else
                                                 المقترح
-                                                @endif
-                                                </label>
-                                            <div class="col-md-8">
-                                                <input type="text" id="comments" name="comments"
-                                                    class="form-control">
-                                            </div>
+                                            @endif
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input type="text" id="comments" name="comments" class="form-control" @if ($ticket_type_id == 3)
+                                            required    
+                                            @endif>
                                         </div>
+                                    </div>
 
-                                        <div class="form-group row">
-                                            <label class="col-md-2 form-control-label" for="">المرفقات</label>
-                                            <div class="col-md-8">
-                                                <input type="file" multiple id="attachments" name="attachments[]"
-                                                    class="form-control">
-                                            </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2 form-control-label" for="">المرفقات</label>
+                                        <div class="col-md-8">
+                                            <input type="file" multiple id="attachments" name="attachments[]"
+                                                class="form-control">
                                         </div>
+                                    </div>
 
 
-                                        <input type="hidden" name="agent_id" value="{{ Auth::id() }}">
+                                    <input type="hidden" name="agent_id" value="{{ Auth::id() }}">
 
 
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-sm btn-primary"><i
-                                                    class="fa fa-dot-circle-o"></i>
-                                                حفظ</button>
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>
-                                                مسح الحقول</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-sm btn-primary"><i
+                                                class="fa fa-dot-circle-o"></i>
+                                            حفظ</button>
+                                        <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>
+                                            مسح الحقول</button>
+                                    </div>
+                                </form>
+                            </div>
 
                         </div>
 

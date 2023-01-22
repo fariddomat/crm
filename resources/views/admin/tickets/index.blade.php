@@ -17,6 +17,49 @@
         <div class="container-fluid">
 
             <div class="animated fadeIn">
+                <div class="col-lg-12">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="search" id="search" autofocus
+                                        value="{{ request()->search }}" aria-describedby="helpId" placeholder="البحث">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select name="type" class="form-control">
+                                        <option value="">كل الأنواع</option>
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type->id }}"
+                                                {{ request()->type == $type->id ? 'selected' : '' }}>{{ $type->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select name="status" class="form-control">
+                                        <option value="">الحالة</option>
+                                        <option value="open" {{ request()->status == 'open' ? 'selected' : '' }}>مفتوحة</option>
+                                        <option value="progress" {{ request()->status == 'progress' ? 'selected' : '' }}>في تقدم</option>
+                                        <option value="closed" {{ request()->status == 'closed' ? 'selected' : '' }}>مغلقة</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"
+                                        aria-hidden="true"></i>
+                                    بحث</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
              <div class="col-lg-12" style="margin-top: 15px">
                 <div class="card">
                     <div class="card-header">
@@ -38,7 +81,7 @@
                             <tbody>
                                 @foreach ($tickets as $ticket)
                                 <tr>
-                                    <td>{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</td>
+                                    <td><a href="{{ route('admin.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</a></td>
                                     <td>{{ $ticket->ticket_type->name }}</td>
                                     @if ($ticket->ticket_classification)
                                    <td>{{ $ticket->ticket_classification->name }}</td>

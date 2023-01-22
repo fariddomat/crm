@@ -23,6 +23,7 @@
                         <div class="card">
                             <form action="{{ route('agent.tickets.profile') }}" method="POST">
                                 @csrf
+                                @include('layouts._error')
 
                             <div class="card-header">
                                 <strong>طلب جديد</strong>

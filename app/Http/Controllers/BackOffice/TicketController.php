@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,15 +25,23 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = '';
-        if ($request->filter == 'all') {
-            $tickets = Ticket::latest()->paginate(10);
+        if ($request->filter == 'progress') {
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)->where('status','progress')->where('back_office_id',null)->latest()->paginate(10);
+            
         } elseif ($request->filter=='my') {
-            $tickets = Ticket::where('back_office_id',Auth::id())->latest()->paginate(10);
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->where('back_office_id',Auth::id())->latest()->paginate(10);
         }else {
-            $tickets = Ticket::where('status','progress')->where('back_office_id',null)->latest()->paginate(10);
             // dd($tickets);//
+
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->latest()->paginate(10);
         }
-        return view('back_office.tickets.index', compact('tickets'));
+        $types = TicketType::all();
+        return view('back_office.tickets.index', compact('tickets','types'));
     }
 
 

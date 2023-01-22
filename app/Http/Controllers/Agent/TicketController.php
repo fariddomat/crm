@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\TicketAttachment;
 use App\TicketClassification;
+use App\TicketType;
 
 class TicketController extends Controller
 {
@@ -23,8 +24,11 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::latest()->paginate(10);
-        return view('agent.tickets.index', compact('tickets'));
+        $tickets = Ticket::whenSearch(request()->search)
+        ->whenType(request()->type)
+        ->whenStatus(request()->status)->latest()->paginate(10);
+        $types = TicketType::all();
+        return view('agent.tickets.index', compact('tickets', 'types'));
     }
 
     /**
@@ -46,11 +50,11 @@ class TicketController extends Controller
         $profile = Profile::where('phone_number', $request->phone_number)->get();
         if ($profile->count() > 0) {
             // user already created
-            session()->flash('success','المستخدم موجود مسبقا !');
+            session()->flash('success', 'المستخدم موجود مسبقا !');
             return redirect()->route('agent.profiles.edit', $profile->first()->id);
         } else {
             // create new user
-            session()->flash('success','مستخدم جديد');
+            session()->flash('success', 'مستخدم جديد');
             return redirect()->route('agent.profiles.create', ['phone_number' => $request->phone_number]);
         }
     }
@@ -73,7 +77,7 @@ class TicketController extends Controller
         $profile_id = $profile->id;
         $ticket_type_id = $request->ticket_type_id;
         $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
-        session()->flash('success','تم الحفظ بنجاح !');
+        session()->flash('success', 'تم الحفظ بنجاح !');
         return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
     }
 
@@ -97,7 +101,7 @@ class TicketController extends Controller
             $ticket_type_id = $request->ticket_type_id;
             $classification = TicketClassification::where('ticket_type_id', $ticket_type_id)->get();
 
-            session()->flash('success','تم الحفظ بنجاح !');
+            session()->flash('success', 'تم الحفظ بنجاح !');
             return view('agent.tickets.type', compact('profile_id', 'ticket_type_id', 'classification'));
         } else {
             abort(404);
@@ -112,7 +116,8 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->ticket_type_id != 3) {
+        // dd($request->ticket_type_id);
+        if ($request->ticket_type_id != "3") {
             $request->validate([
                 'ticket_classification_id' => 'required'
             ]);
@@ -128,20 +133,19 @@ class TicketController extends Controller
 
 
         $ticket = Ticket::create($request->except('attachments'));
-        if($request->hasFile('attachments')){
-            $files=$request->file('attachments');
-            foreach ($files as $key=>$file) {
+        if ($request->hasFile('attachments')) {
+            $files = $request->file('attachments');
+            foreach ($files as $key => $file) {
                 // dd($file);
-                $name = $file->hashName().time().'.'.$file->extension();
-                $file->move(public_path().'/files/'.$ticket->id.'/', $name);
+                $name = $file->hashName() . time() . '.' . $file->extension();
+                $file->move(public_path() . '/files/' . $ticket->id . '/', $name);
                 TicketAttachment::create([
-                    'ticket_id'=>$ticket->id,
-                    'file'=>$name
+                    'ticket_id' => $ticket->id,
+                    'file' => $name
                 ]);
             }
-
         }
-        session()->flash('success','تم الحفظ بنجاح !');
+        session()->flash('success', 'تم الحفظ بنجاح !');
         return redirect()->route('agent.tickets.edit', $ticket->id);
     }
 
@@ -186,7 +190,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
-            session()->flash('success','تم التعديل بنجاح !');
+            session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('agent.tickets.index');
         } else {
             abort(404);
@@ -207,12 +211,11 @@ class TicketController extends Controller
     public function specList(Request $request)
     {
         $parent_id = $request->college_id;
-        $colleges = College::where('id',$parent_id)
-                              ->with('specializations')
-                              ->get();
+        $colleges = College::where('id', $parent_id)
+            ->with('specializations')
+            ->get();
         return response()->json([
             'spec' => $colleges
         ]);
-
     }
 }

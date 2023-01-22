@@ -74,10 +74,10 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
+                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?filter=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?filter=all"><i class="icon-puzzle"></i> كل التذاكر</a>
+                           <a class="nav-link" href="{{ route('supervisor.tickets.index') }}"><i class="icon-puzzle"></i> كل التذاكر</a>
                        </li>
                     </ul>
                 </li>

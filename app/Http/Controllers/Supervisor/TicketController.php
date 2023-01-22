@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supervisor;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -24,13 +25,19 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = '';
-        if ($request->filter == 'all') {
-            $tickets = Ticket::latest()->paginate(10);
+        if ($request->filter == 'progress') {
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->where('status', 'progress')->latest()->paginate(10);
         }
         else {
-            $tickets = Ticket::where('status', 'progress')->latest()->paginate(10);
+            $tickets = Ticket::whenSearch(request()->search)
+            ->whenType(request()->type)
+            ->whenStatus(request()->status)->latest()->paginate(10);
         }
-        return view('supervisor.tickets.index', compact('tickets'));
+
+        $types = TicketType::all();
+        return view('supervisor.tickets.index', compact('tickets', 'types'));
     }
 
 
