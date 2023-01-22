@@ -67,6 +67,7 @@
                                             <th>الاسم</th>
                                             <th>البريد الإلكتروني</th>
                                             <th>المهمة</th>
+                                            <th>التذاكر</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -80,6 +81,13 @@
                                                     @foreach ($user->roles as $role)
                                                         <span class="badge badge-primary">{{ $role->name }}</span>
                                                     @endforeach
+                                                </td>
+                                                <td>
+                                                    @if ($user->hasRole('agent') || $user->hasRole('back_office'))
+                                                   <a href="{{ route('admin.tickets.index') }}?id={{ $user->id }}" class="btn btn-small btn-primary"> {{ $user->tikets($user->id) }} <i class="fa fa-ticket"></i></a>
+                                                    @else
+                                                    ---------
+                                                    @endif
                                                 </td>
                                                 <td>
 

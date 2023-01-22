@@ -16,7 +16,7 @@ class UserController extends Controller
     }
 
     public function index()
-    {
+    { 
         $roles=Role::whereRoleNot(['admin'])->get();
 
         $users=User::whereRoleNot(['admin'])
