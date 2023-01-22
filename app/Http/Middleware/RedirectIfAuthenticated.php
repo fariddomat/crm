@@ -25,6 +25,9 @@ class RedirectIfAuthenticated
             elseif(auth()->user()->hasRole(['back_office'])) {
                 return redirect(RouteServiceProvider::BACK_OFFICE);
             }
+            elseif(auth()->user()->hasRole(['supervisor'])) {
+                return redirect(RouteServiceProvider::SUPERVISOR);
+            }
             return redirect(RouteServiceProvider::agent);
         }
 
