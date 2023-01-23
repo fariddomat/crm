@@ -66,4 +66,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'agent_id');
     }
+
+    public function back_office()
+    {
+        return $this->belongsTo(User::class, 'back_office_id');
+    }
 }

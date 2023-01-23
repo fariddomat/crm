@@ -74,7 +74,7 @@
                      <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
                      <ul class="nav-dropdown-items">
                          <li class="nav-item">
-                             <a class="nav-link" href="{{ route('admin.tickets.index') }}?filter=progress"><i class="icon-puzzle"></i>
+                             <a class="nav-link" href="{{ route('admin.tickets.index') }}?status=progress"><i class="icon-puzzle"></i>
                                  تحتاج مراجعة</a>
                          </li>
                          <li class="nav-item">

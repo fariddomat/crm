@@ -25,15 +25,21 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = '';
-        if ($request->filter == 'progress') {
+        if ($request->id) {
+            $user = User::find($request->id);
+            if ($user->hasRole('agent')) {
+                $tickets = Ticket::where('agent_id', $request->id)->latest()->paginate(10);
+                // dd($tickets);
+            } elseif ($user->hasRole('back_office')) {
+                $tickets = Ticket::where('back_office_id', $request->id)->latest()->paginate(10);
+            } else {
+                abort(404);
+            }
+        } else {
+
             $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->where('status', 'progress')->latest()->paginate(10);
-        }
-        else {
-            $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->latest()->paginate(10);
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->latest()->paginate(10);
         }
 
         $types = TicketType::all();
@@ -82,11 +88,11 @@ class TicketController extends Controller
     public function edit($id)
     {
         $ticket = Ticket::find($id);
-        $back_offices=  $users=User::whereRole(['back_office'])->get();
+        $back_offices =  $users = User::whereRole(['back_office'])->get();
         if ($ticket) {
             $profile = Profile::find($ticket->profile->id);
             // dd($profile->specialization_name);
-            return view('supervisor.tickets.edit', compact('ticket', 'profile','back_offices'));
+            return view('supervisor.tickets.edit', compact('ticket', 'profile', 'back_offices'));
         } else {
             abort(404);
         }
@@ -104,7 +110,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
-            session()->flash('success','تم التعديل بنجاح !');
+            session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('supervisor.tickets.index');
         } else {
             abort(404);

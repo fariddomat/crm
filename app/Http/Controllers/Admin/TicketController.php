@@ -37,14 +37,7 @@ class TicketController extends Controller
             } else {
                 abort(404);
             }
-
-            return view('admin.tickets.index', compact('tickets', 'types'));
-        }
-        if ($request->filter == 'progress') {
-            $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->where('status', 'progress')->latest()->paginate(10);
-        } else {
+        }else {
             $tickets = Ticket::whenSearch(request()->search)
             ->whenType(request()->type)
             ->whenStatus(request()->status)->latest()->paginate(10);

@@ -77,7 +77,7 @@
                              <a class="nav-link" href="{{ route('back_office.tickets.index') }}?filter=my"><i class="icon-puzzle"></i> مسندة لي</a>
                          </li>
                          <li class="nav-item">
-                             <a class="nav-link" href="{{ route('back_office.tickets.index') }}?filter=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
+                             <a class="nav-link" href="{{ route('back_office.tickets.index') }}?status=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
                          </li>
                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('back_office.tickets.index') }}"><i class="icon-puzzle"></i> كل التذاكر</a>

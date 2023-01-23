@@ -25,11 +25,7 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = '';
-        if ($request->filter == 'progress') {
-            $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)->where('status','progress')->where('back_office_id',null)->latest()->paginate(10);
-            
-        } elseif ($request->filter=='my') {
+        if ($request->filter=='my') {
             $tickets = Ticket::whenSearch(request()->search)
             ->whenType(request()->type)
             ->whenStatus(request()->status)->where('back_office_id',Auth::id())->latest()->paginate(10);

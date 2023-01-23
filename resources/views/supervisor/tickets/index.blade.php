@@ -71,6 +71,8 @@
                                     <tr>
                                         <th>الاسم</th>
                                         <th>نوع التذكرة</th>
+                                        <td>Agent</td>
+                                        <td>Back office</td>
                                         <th>التصنيف</th>
                                         <th>تاريخ الفتح</th>
                                         <th>تاريخ الاغلاق</th>
@@ -83,6 +85,17 @@
                                         <tr>
                                             <td><a href="{{ route('supervisor.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</a></td>
                                             <td>{{ $ticket->ticket_type->name }}</td>
+                                            <td>
+                                                @if ($ticket->agent)
+                                                {{ $ticket->agent->name }}
+                                            @else
+                                            -----
+                                            @endif</td>
+                                            <td>@if ($ticket->back_office)
+                                                {{ $ticket->back_office->name }}
+                                            @else
+                                            -----
+                                            @endif</td>
                                             @if ($ticket->ticket_classification)
                                                 <td>{{ $ticket->ticket_classification->name }}</td>
                                             @else

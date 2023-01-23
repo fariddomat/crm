@@ -53,7 +53,7 @@ Route::get('/clear', function() {
     Route::get('/myProfile', 'Supervisor\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Supervisor\HomeController@updateProfile')->name('updateProfile');
     Route::resource('profiles','Supervisor\ProfileController');
-
+    Route::resource('users','Supervisor\UserController');
     Route::resource('tickets','Supervisor\TicketController');
 
  });

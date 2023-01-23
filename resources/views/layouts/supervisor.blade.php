@@ -74,7 +74,7 @@
                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
                     <ul class="nav-dropdown-items">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?filter=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
+                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?status=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}"><i class="icon-puzzle"></i> كل التذاكر</a>
@@ -83,6 +83,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('supervisor.profiles.index') }}"><i class="icon-user"></i> ملفات الزبائن </a>
+                </li>
+
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link" href="{{ route('supervisor.users.index') }}"><i class="icon-user"></i>
+                        المستخدمين</a>
+
                 </li>
                  <li class="nav-title">
                      Extras
