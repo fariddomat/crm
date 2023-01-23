@@ -19,7 +19,7 @@
             <div class="animated fadeIn">
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
 
                         <div class="card">
                             <div class="card-header">
@@ -159,6 +159,52 @@
 
                         </div>
 
+                    </div>
+                    <div class="col-sm-6">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa fa-align-justify"></i> التذاكر
+                            </div>
+                            <div class="card-block table-responsive">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th>النوع</th>
+                                            <th>التصنيف</th>
+                                            <th>الحالة</th>
+                                            <th>التحكم</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($profile->tickets as $ticket)
+                                        <tr>
+                                            <td>{{ $ticket->ticket_type->name }} </td>
+                                            @if ($ticket->ticket_classification)
+                                   <td>{{ $ticket->ticket_classification->name }}</td>
+                                   @else
+                                   <td>-----</td>
+                                   @endif
+                                            <td> <span class="tag @if ($ticket->status == 'open')
+                                                tag-success
+                                                @elseif ($ticket->status == 'progress')
+                                                tag-warning
+                                                @else
+                                                tag-danger
+                                                @endif">{{ $ticket->status }}</span></td>
+                                            <td>
+                                                <a href="{{ route('agent.tickets.edit', $ticket->id) }}" class="btn btn-success btn-sm"><i class="fa fa-ticket"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>@if ($profile->tickets->count()==0)
+                                        <h3>لايوجد بيانات لعرضها</h3>
+                                        @endif
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

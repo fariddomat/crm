@@ -59,7 +59,7 @@
                                         </label>
                                         <div class="col-md-8">
                                             <input type="text" id="comments" name="comments" class="form-control" @if ($ticket_type_id == 3)
-                                            required    
+                                            required
                                             @endif>
                                         </div>
                                     </div>

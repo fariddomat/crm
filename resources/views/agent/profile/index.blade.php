@@ -23,7 +23,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="search" id="search" autofocus
-                                        value="{{ request()->search }}" aria-describedby="helpId" placeholder="الاسم أو رقم الهاتف أو الرقم الجامعي">
+                                        value="{{ request()->search }}" aria-describedby="helpId"
+                                        placeholder="الاسم أو رقم الهاتف أو الرقم الجامعي">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -60,6 +61,11 @@
                                             <td>
                                                 <a href="{{ route('agent.profiles.show', $profile->id) }}"
                                                     class="btn btn-success btn-sm"><i class="fa fa-ticket"></i></a>
+
+                                                <a href="{{ route('agent.profiles.edit', $profile->id) }}"
+                                                    class="btn btn-primary btn-sm">تذكرة جديدة <i
+                                                        class="fa fa-edit"></i></a>
+
                                             </td>
                                         </tr>
                                     @endforeach

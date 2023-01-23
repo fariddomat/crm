@@ -10,6 +10,7 @@ use App\Profile;
 use App\TicketAttachment;
 use App\TicketClassification;
 use App\TicketType;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -22,11 +23,18 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::whenSearch(request()->search)
-        ->whenType(request()->type)
-        ->whenStatus(request()->status)->latest()->paginate(10);
+        if ($request->filter == 'my') {
+            $tickets = Ticket::whenSearch(request()->search)
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->where('agent_id', Auth::id())->latest()->paginate(10);
+        } else {
+
+            $tickets = Ticket::whenSearch(request()->search)
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->latest()->paginate(10);
+        }
         $types = TicketType::all();
         return view('agent.tickets.index', compact('tickets', 'types'));
     }

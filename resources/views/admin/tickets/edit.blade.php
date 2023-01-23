@@ -92,13 +92,13 @@
                                             <label class="col-md-3 form-control-label" for="">مصدر التذكرة</label>
                                             <div class="col-md-8">
                                                 <input type="text"  id="ticket_source" name="ticket_source"
-                                                    class="form-control">
+                                                    class="form-control" value="{{ $ticket->ticket_source }}" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">ملاحظات</label>
                                             <div class="col-md-8">
-                                                <textarea name="request_description" id="request_description" cols="30" rows="3" class="form-control"></textarea>
+                                                <textarea name="request_description" id="request_description" cols="30" rows="3" class="form-control">{{ $ticket->request_description }}</textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
