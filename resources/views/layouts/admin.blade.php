@@ -40,7 +40,8 @@
                          <div class="dropdown-header text-xs-center">
                              <strong>Account</strong>
                          </div>
-                         <a class="dropdown-item" href="{{ route('admin.myProfile') }}"><i class="fa fa-bell-o"></i> الملف الشخصي</a>
+                         <a class="dropdown-item" href="{{ route('admin.myProfile') }}"><i class="fa fa-bell-o"></i>
+                             الملف الشخصي</a>
                          <div class="dropdown-header text-xs-center">
                              <strong>Settings</strong>
                          </div><a class="dropdown-item" href="{{ route('logout') }}"
@@ -64,7 +65,8 @@
          <nav class="sidebar-nav">
              <ul class="nav">
                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('admin.home') }}"><i class="icon-speedometer"></i> لوحة التحكم </a>
+                     <a class="nav-link" href="{{ route('admin.home') }}"><i class="icon-speedometer"></i> لوحة التحكم
+                     </a>
                  </li>
 
                  <li class="nav-title">
@@ -74,12 +76,13 @@
                      <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
                      <ul class="nav-dropdown-items">
                          <li class="nav-item">
-                             <a class="nav-link" href="{{ route('admin.tickets.index') }}?status=progress"><i class="icon-puzzle"></i>
+                             <a class="nav-link" href="{{ route('admin.tickets.index') }}?status=progress"><i
+                                     class="icon-puzzle"></i>
                                  تحتاج مراجعة</a>
                          </li>
                          <li class="nav-item">
-                             <a class="nav-link" href="{{ route('admin.tickets.index') }}"><i
-                                     class="icon-puzzle"></i> كل التذاكر</a>
+                             <a class="nav-link" href="{{ route('admin.tickets.index') }}"><i class="icon-puzzle"></i>
+                                 كل التذاكر</a>
                          </li>
                      </ul>
                  </li>

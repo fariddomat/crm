@@ -154,7 +154,13 @@ class TicketController extends Controller
             }
         }
         session()->flash('success', 'تم الحفظ بنجاح !');
-        return redirect()->route('agent.tickets.edit', $ticket->id);
+        if ($request->ticket_type_id == '3') {
+            $ticket->status='closed';
+            $ticket->save();
+            return redirect()->route('agent.tickets.index');
+        } else {
+            return redirect()->route('agent.tickets.edit', $ticket->id);
+        }
     }
 
     /**
