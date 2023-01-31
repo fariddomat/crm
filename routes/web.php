@@ -36,6 +36,7 @@ Route::get('/clear', function() {
 
  Route::group(['prefix' => '/admin', 'middleware' => ['auth', ], 'as' => 'admin.'], function () {
     Route::get('/home', 'Admin\HomeController@index')->name('home');
+    Route::get('/log', 'Admin\HomeController@log')->name('log');
     Route::get('/myProfile', 'Admin\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Admin\HomeController@updateProfile')->name('updateProfile');
     Route::resource('users','Admin\UserController');
@@ -50,6 +51,7 @@ Route::get('/clear', function() {
 
  Route::group(['prefix' => '/supervisor', 'middleware' => ['auth', ], 'as' => 'supervisor.'], function () {
     Route::get('/home', 'Supervisor\HomeController@index')->name('home');
+    Route::get('/log', 'Supervisor\HomeController@log')->name('log');
     Route::get('/myProfile', 'Supervisor\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Supervisor\HomeController@updateProfile')->name('updateProfile');
     Route::resource('profiles','Supervisor\ProfileController');
@@ -61,6 +63,7 @@ Route::get('/clear', function() {
 
  Route::group(['prefix' => '/back_office', 'middleware' => ['auth', ], 'as' => 'back_office.'], function () {
     Route::get('/home', 'BackOffice\HomeController@index')->name('home');
+    Route::get('/log', 'BackOffice\HomeController@log')->name('log');
     Route::get('/myProfile', 'BackOffice\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'BackOffice\HomeController@updateProfile')->name('updateProfile');
 
@@ -73,6 +76,7 @@ Route::get('/clear', function() {
 
  Route::group(['prefix' => '/agent', 'middleware' => ['auth', ], 'as' => 'agent.'], function () {
     Route::get('/home', 'Agent\HomeController@index')->name('home');
+    Route::get('/log', 'Agent\HomeController@log')->name('log');
     Route::get('/myProfile', 'Agent\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Agent\HomeController@updateProfile')->name('updateProfile');
 

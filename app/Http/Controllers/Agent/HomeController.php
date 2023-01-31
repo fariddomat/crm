@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketLog;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
+
 class HomeController extends Controller
 {
     public function __construct()
@@ -18,11 +20,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        $tickets=Ticket::count();
-        $opendTickets=Ticket::where('status','open')->count();
-        $myTickets=Ticket::where('agent_id',auth()->id())->count();
-        $customers=Profile::count();
-        return view('agent.index',compact('tickets', 'opendTickets', 'myTickets', 'customers'));
+        $tickets = Ticket::count();
+        $opendTickets = Ticket::where('status', 'open')->count();
+        $myTickets = Ticket::where('agent_id', auth()->id())->count();
+        $customers = Profile::count();
+        return view('agent.index', compact('tickets', 'opendTickets', 'myTickets', 'customers'));
     }
     public function myProfile()
     {
@@ -32,10 +34,10 @@ class HomeController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $user=User::find(Auth::id());
+        $user = User::find(Auth::id());
         $request->validate([
             'name' => 'required',
-            'email'=>'required|email|unique:users,email,' . Auth::id(),
+            'email' => 'required|email|unique:users,email,' . Auth::id(),
         ]);
         if ($request->password != "") {
 
@@ -44,15 +46,20 @@ class HomeController extends Controller
             ]);
             $request->merge(['password' => bcrypt($request->password)]);
             $user->update($request->all());
-        }else{
+        } else {
             $user->update([
-                'name'=>$request->name,
-                'email'=>$request->email,
+                'name' => $request->name,
+                'email' => $request->email,
 
             ]);
-
         }
-        session()->flash('success','تم التعديل بنجاح !');
+        session()->flash('success', 'تم التعديل بنجاح !');
         return redirect()->back();
+    }
+
+    public function log()
+    {
+        $logs = TicketLog::whenSearch(request()->search)->orderBy('ticket_id')->with(['ticket', 'user'])->paginate(10);
+        return view('agent.log', compact('logs'));
     }
 }

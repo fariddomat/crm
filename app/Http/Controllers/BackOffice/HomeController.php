@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketLog;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,5 +55,11 @@ class HomeController extends Controller
         }
         session()->flash('success','تم التعديل بنجاح !');
         return redirect()->back();
+    }
+
+    public function log()
+    {
+        $logs=TicketLog::whenSearch(request()->search)->orderBy('ticket_id')->with(['ticket', 'user'])->paginate(10);
+        return view('back_office.log',compact('logs'));
     }
 }

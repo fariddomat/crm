@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\TicketAttachment;
 use App\TicketClassification;
+use App\TicketLog;
 use App\TicketType;
 use Illuminate\Support\Facades\Auth;
 
@@ -134,12 +135,6 @@ class TicketController extends Controller
                 'comments' => 'required'
             ]);
         }
-
-        // 'attachments' => 'required',
-        // 'attachments.*' => 'mimes:doc,pdf,docx,zip'
-
-
-
         $ticket = Ticket::create($request->except('attachments'));
         if ($request->hasFile('attachments')) {
             $files = $request->file('attachments');
@@ -153,10 +148,13 @@ class TicketController extends Controller
                 ]);
             }
         }
+        TicketLog::log($ticket->id, 'تم فتح التذكرة ');
         session()->flash('success', 'تم الحفظ بنجاح !');
         if ($request->ticket_type_id == '3') {
-            $ticket->status='closed';
+            $ticket->status = 'closed';
             $ticket->save();
+            TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+
             return redirect()->route('agent.tickets.index');
         } else {
             return redirect()->route('agent.tickets.edit', $ticket->id);
@@ -204,6 +202,11 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
+            if ($ticket->status == 'progress') {
+                TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
+            } else {
+                TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+            }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('agent.tickets.index');
         } else {

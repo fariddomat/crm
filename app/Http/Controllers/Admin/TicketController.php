@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Profile;
 use App\Ticket;
+use App\TicketLog;
 use App\TicketType;
 use App\User;
 use Illuminate\Http\Request;
@@ -109,6 +110,11 @@ class TicketController extends Controller
         $ticket = Ticket::find($id);
         if ($ticket) {
             $ticket->update($request->all());
+            if ($ticket->status == 'progress') {
+                TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
+            } else {
+                TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+            }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('admin.tickets.index');
         } else {

@@ -62,6 +62,11 @@ class Ticket extends Model
         return $this->hasMany(TicketAttachment::class);
     }
 
+    public function ticket_logs()
+    {
+        return $this->hasMany(TicketLog::class);
+    }
+
     public function agent()
     {
         return $this->belongsTo(User::class, 'agent_id');

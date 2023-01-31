@@ -97,6 +97,10 @@
 
                  </li>
 
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.log') }}"><i class="icon-magnifier"></i>
+                        سجل العمليات </a>
+                </li>
                  <li class="nav-title">
                      Extras
                  </li>

@@ -87,6 +87,11 @@
                  <li class="nav-item">
                      <a class="nav-link" href="{{ route('back_office.profiles.index') }}"><i class="icon-user"></i> ملفات الزبائن </a>
                  </li>
+
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('back_office.log') }}"><i class="icon-magnifier"></i>
+                        سجل العمليات </a>
+                </li>
                  <li class="nav-title">
                      Extras
                  </li>
