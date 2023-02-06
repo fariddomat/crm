@@ -14,11 +14,15 @@ class CreateTicketLogsTable extends Migration
     public function up()
     {
         Schema::create('ticket_logs', function (Blueprint $table) {
-            $table->id();
-            $table->integer('ticket_id');
-            $table->integer('user_id');
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('ticket_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('log');
             $table->timestamps();
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

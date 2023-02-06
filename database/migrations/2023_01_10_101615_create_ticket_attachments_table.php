@@ -14,10 +14,13 @@ class CreateTicketAttachmentsTable extends Migration
     public function up()
     {
         Schema::create('ticket_attachments', function (Blueprint $table) {
-            $table->id();
-            $table->integer('ticket_id');
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('ticket_id');
             $table->string('file');
             $table->timestamps();
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+
         });
     }
 

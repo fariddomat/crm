@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSpecializationsTable extends Migration
+class CreateTicketTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateSpecializationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('specializations', function (Blueprint $table) {
-            $table->id();
-            $table->integer('college_id');
+        Schema::create('ticket_types', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateSpecializationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specializations');
+        Schema::dropIfExists('ticket_types');
     }
 }

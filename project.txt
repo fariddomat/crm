@@ -1,0 +1,15 @@
+php
+
+MVC
+
+Model =>App folder
+    migration
+
+View => resources => views
+
+Controller => App => Http => Controllers
+
+
+Routing System => routes => web.php
+
+laratrust => 4 users type

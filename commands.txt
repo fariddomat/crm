@@ -1,0 +1,5 @@
+// init db
+php artisan migrate:fresh --seed
+
+//run
+php artisan serve

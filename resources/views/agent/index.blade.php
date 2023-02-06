@@ -29,7 +29,9 @@
                                 <div class="btn-group pull-left">
                                     <i class="icon-puzzle"></i>
                                 </div>
-                                <h4 class="m-b-0">{{ $tickets }}</h4>
+                                <h4 class="m-b-0">
+                                    {{ $tickets }}
+                                    </h4>
                                 <p>All Tickets</p>
                             </div>
                             <div class="chart-wrapper p-x-1" style="height:70px;">

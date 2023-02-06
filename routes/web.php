@@ -75,7 +75,7 @@ Route::get('/clear', function() {
  });
 
  Route::group(['prefix' => '/agent', 'middleware' => ['auth', ], 'as' => 'agent.'], function () {
-    Route::get('/home', 'Agent\HomeController@index')->name('home');
+    Route::get('/home', 'Agent\HomeController@index')->name('home'); 
     Route::get('/log', 'Agent\HomeController@log')->name('log');
     Route::get('/myProfile', 'Agent\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Agent\HomeController@updateProfile')->name('updateProfile');

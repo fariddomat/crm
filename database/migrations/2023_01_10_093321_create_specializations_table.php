@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketClassificationsTable extends Migration
+class CreateSpecializationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateTicketClassificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_classifications', function (Blueprint $table) {
-            $table->id();
-            $table->integer('ticket_type_id');
+        Schema::create('specializations', function (Blueprint $table) {
+            $table->engine = "InnoDB";
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('college_id');
             $table->string('name');
             $table->timestamps();
+            $table->foreign('college_id')->references('id')->on('colleges')->onDelete('cascade');
+
         });
     }
 
@@ -28,6 +31,6 @@ class CreateTicketClassificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_classifications');
+        Schema::dropIfExists('specializations');
     }
 }
