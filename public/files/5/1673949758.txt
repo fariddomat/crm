@@ -1,6 +1,0 @@
-if ($request->has('about_me_image')) {
-            Storage::disk('local')->delete($info->about_me_image);
-            $image = $request->file('about_me_image');
-            $filename = $image->getClientOriginalName();
-            $info->about_me_image = $image->storeAs('photos/home', $filename);
-        }
