@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
+use App\MailNotify\MailNotify;
 use App\Profile;
 use App\Ticket;
 use App\TicketLog;
@@ -26,19 +27,19 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         $tickets = '';
-        if ($request->filter=='my') {
+        if ($request->filter == 'my') {
             $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->where('back_office_id',Auth::id())->latest()->paginate(10);
-        }else {
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->where('back_office_id', Auth::id())->latest()->paginate(10);
+        } else {
             // dd($tickets);//
 
             $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->latest()->paginate(10);
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->latest()->paginate(10);
         }
         $types = TicketType::all();
-        return view('back_office.tickets.index', compact('tickets','types'));
+        return view('back_office.tickets.index', compact('tickets', 'types'));
     }
 
 
@@ -108,8 +109,10 @@ class TicketController extends Controller
                 TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
             } else {
                 TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+                $ticket = Ticket::find($ticket->id);
+                MailNotify::notify($ticket);
             }
-            session()->flash('success','تم التعديل بنجاح !');
+            session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('back_office.tickets.index');
         } else {
             abort(404);

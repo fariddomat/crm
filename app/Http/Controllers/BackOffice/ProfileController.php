@@ -22,7 +22,7 @@ class ProfileController extends Controller
     {
         $profiles=Profile::whenSearch(request()->search)->paginate(10);
         return view('back_office.profile.index', compact('profiles'));
-    }
+    } 
 
     /**
      * Show the form for creating a new resource.

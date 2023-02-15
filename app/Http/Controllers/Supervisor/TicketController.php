@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Supervisor;
 
 use App\Http\Controllers\Controller;
+use App\MailNotify\MailNotify;
 use App\Profile;
 use App\Ticket;
 use App\TicketLog;
@@ -112,9 +113,11 @@ class TicketController extends Controller
         if ($ticket) {
             $ticket->update($request->all());
             if ($ticket->status == 'progress') {
-                TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office : '.$ticket->back_office->name);
+                TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office : ' . $ticket->back_office->name);
             } else {
                 TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+                $ticket = Ticket::find($ticket->id);
+                MailNotify::notify($ticket);
             }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('supervisor.tickets.index');

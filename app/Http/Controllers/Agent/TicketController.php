@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Agent;
 
 use App\College;
 use App\Http\Controllers\Controller;
+use App\MailNotify\MailNotify;
 use App\Ticket;
 use Illuminate\Http\Request;
 use App\Profile;
@@ -150,6 +151,8 @@ class TicketController extends Controller
         }
         TicketLog::log($ticket->id, 'تم فتح التذكرة ');
         session()->flash('success', 'تم الحفظ بنجاح !');
+        $ticket = Ticket::find($ticket->id);
+        MailNotify::notify($ticket);
         if ($request->ticket_type_id == '3') {
             $ticket->status = 'closed';
             $ticket->save();
@@ -206,6 +209,8 @@ class TicketController extends Controller
                 TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
             } else {
                 TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+                $ticket = Ticket::find($ticket->id);
+                MailNotify::notify($ticket);
             }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('agent.tickets.index');

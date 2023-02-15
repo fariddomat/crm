@@ -66,7 +66,7 @@ Route::get('/clear', function() {
     Route::get('/log', 'BackOffice\HomeController@log')->name('log');
     Route::get('/myProfile', 'BackOffice\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'BackOffice\HomeController@updateProfile')->name('updateProfile');
-
+ 
 
 
     Route::resource('tickets','BackOffice\TicketController');
@@ -75,18 +75,15 @@ Route::get('/clear', function() {
  });
 
  Route::group(['prefix' => '/agent', 'middleware' => ['auth', ], 'as' => 'agent.'], function () {
-    Route::get('/home', 'Agent\HomeController@index')->name('home'); 
+    Route::get('/home', 'Agent\HomeController@index')->name('home');
     Route::get('/log', 'Agent\HomeController@log')->name('log');
     Route::get('/myProfile', 'Agent\HomeController@myProfile')->name('myProfile');
     Route::post('/updateProfile', 'Agent\HomeController@updateProfile')->name('updateProfile');
-
     Route::resource('tickets','Agent\TicketController');
     Route::post('/specList', 'Agent\TicketController@specList')->name('specList');
-
     Route::post('/tickets/profile', 'Agent\TicketController@profile')->name('tickets.profile');
     Route::post('/tickets/newTicket', 'Agent\TicketController@newTicket')->name('tickets.newTicket');
     Route::post('/tickets/newTicketOldUser', 'Agent\TicketController@newTicketOldUser')->name('tickets.newTicketOldUser');
-
     Route::resource('profiles','Agent\ProfileController');
 
 

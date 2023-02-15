@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\MailNotify\MailNotify;
 use App\Profile;
 use App\Ticket;
 use App\TicketLog;
@@ -38,10 +39,10 @@ class TicketController extends Controller
             } else {
                 abort(404);
             }
-        }else {
+        } else {
             $tickets = Ticket::whenSearch(request()->search)
-            ->whenType(request()->type)
-            ->whenStatus(request()->status)->latest()->paginate(10);
+                ->whenType(request()->type)
+                ->whenStatus(request()->status)->latest()->paginate(10);
         }
 
         return view('admin.tickets.index', compact('tickets', 'types'));
@@ -114,6 +115,8 @@ class TicketController extends Controller
                 TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
             } else {
                 TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
+                $ticket = Ticket::find($ticket->id);
+                MailNotify::notify($ticket);
             }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('admin.tickets.index');

@@ -1,0 +1,13 @@
+resource
+
+index
+show
+create
+store
+edit
+update
+destroy
+
+1
+2
+3
