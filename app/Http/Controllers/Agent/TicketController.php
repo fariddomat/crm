@@ -151,8 +151,14 @@ class TicketController extends Controller
         }
         TicketLog::log($ticket->id, 'تم فتح التذكرة ');
         session()->flash('success', 'تم الحفظ بنجاح !');
-        $ticket = Ticket::find($ticket->id);
-        MailNotify::notify($ticket);
+        try {
+
+            $ticket = Ticket::find($ticket->id);
+            MailNotify::notify($ticket);
+            TicketLog::log($ticket->id, 'تم ارسال الايميل ');
+        } catch (\Throwable $th) {
+            TicketLog::log($ticket->id, 'لم يتم ارسال الايميل ');
+        }
         if ($request->ticket_type_id == '3') {
             $ticket->status = 'closed';
             $ticket->save();
@@ -209,8 +215,13 @@ class TicketController extends Controller
                 TicketLog::log($ticket->id, 'تم تحويل التذكرة إلى back Office');
             } else {
                 TicketLog::log($ticket->id, 'تم اغلاق التذكرة');
-                $ticket = Ticket::find($ticket->id);
-                MailNotify::notify($ticket);
+                try {
+                    $ticket = Ticket::find($ticket->id);
+                    MailNotify::notify($ticket);
+                    TicketLog::log($ticket->id, 'تم ارسال الايميل ');
+                } catch (\Throwable $th) {
+                    TicketLog::log($ticket->id, 'لم يتم ارسال الايميل ');
+                }
             }
             session()->flash('success', 'تم التعديل بنجاح !');
             return redirect()->route('agent.tickets.index');

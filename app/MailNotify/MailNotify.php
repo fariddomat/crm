@@ -15,7 +15,7 @@ class  MailNotify
                 // inquiries
                 if ($ticket->status == 'open') {
                     $title="Inquiry Ticket opened";
-                    $data = "Hello" . $ticket->profile->first_name . ",
+                    $data = "Hello " . $ticket->profile->first_name . ",
                         Thank you for reaching out with Arab Open University, your inquiry ticket number is #" . $ticket->id . "
                         We are pleased to be at your service.
                         Arab Open University
@@ -59,7 +59,7 @@ class  MailNotify
                 if ($ticket->status == 'open') {
                     $title="فتح تذكرة استفسار";
                     $data = "مرحبا " . $ticket->profile->first_name . "
-                    شكرًا لك على تواصلكم مع الجامعة العربية المفتوحة، رقم تذكرة الاستفسار الخاص بك هو # " . $ticket->id . "
+                    شكرًا لك على تواصلكم مع الجامعة العربية المفتوحة، رقم تذكرة الاستفسار الخاص بك هو #" . $ticket->id . "
                     يسرنا أن نكون في خدمتكم
                     الجامعة العربية المفتوحة
                         ";
@@ -75,7 +75,7 @@ class  MailNotify
                 if ($ticket->status == 'open'){
                     $title="فتح تذكرة شكوى";
                     $data = "مرحبا " . $ticket->profile->first_name . "
-                    شكرًا لك على تواصلكم مع الجامعة العربية المفتوحة، رقم تذكرة الشكوى الخاص بك هو # " . $ticket->id . "
+                    شكرًا لك على تواصلكم مع الجامعة العربية المفتوحة، رقم تذكرة الشكوى الخاص بك هو #" . $ticket->id . "
                     يسرنا أن نكون في خدمتكم
                     الجامعة العربية المفتوحة
                        ";
