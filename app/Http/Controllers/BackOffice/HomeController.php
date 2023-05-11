@@ -19,12 +19,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $tickets=Ticket::count();
-        $opendTickets=Ticket::where('status','open')->count();
-        $myTickets=Ticket::where('back_office_id',auth()->id())->count();
-        $customers=Profile::count();
-        return view('back_office.index',compact('tickets', 'opendTickets', 'myTickets', 'customers'));
-    } 
+        return view('back_office.index');
+    }
     public function myProfile()
     {
         $user = Auth::user();

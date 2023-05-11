@@ -37,22 +37,25 @@
                          <span>{{ Auth::user()->email }}</span>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <div class="dropdown-header text-xs-center">
-                            <strong>Account</strong>
-                        </div>
-                        <a class="dropdown-item" href="{{ route('supervisor.myProfile') }}"><i class="fa fa-bell-o"></i> الملف الشخصي</a>
-                        <div class="dropdown-header text-xs-center">
-                            <strong>Settings</strong>
-                        </div><a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                      document.getElementById('logout-form').submit();">
-                         <i class="fa fa-lock"></i>تسجيل خروج
-                     </a>
+                         <div class="dropdown-header text-xs-center">
+                             <strong>Account</strong>
+                         </div>
+                         <a class="dropdown-item" href="{{ route('supervisor.myProfile') }}">
+                             <i class="fa fa-bell-o"></i> الملف الشخصي
+                         </a>
+                         <div class="dropdown-header text-xs-center">
+                             <strong>Settings</strong>
+                         </div>
+<a class="dropdown-item" href="{{ route('logout') }}"
+    onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+    <i class="fa fa-lock"></i>تسجيل خروج
+</a>
 
-                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                         @csrf
-                     </form>
-                    </div>
+                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                             @csrf
+                         </form>
+                     </div>
                  </li>
                  <li class="nav-item">
                  </li>
@@ -64,44 +67,49 @@
          <nav class="sidebar-nav">
              <ul class="nav">
                  <li class="nav-item">
-                     <a class="nav-link" href="{{ route('supervisor.home') }}"><i class="icon-speedometer"></i> لوحة التحكم </a>
+                     <a class="nav-link" href="{{ route('supervisor.home') }}"><i class="icon-speedometer"></i> لوحة
+                         التحكم </a>
                  </li>
 
                  <li class="nav-title">
                      الأدوات
                  </li>
                  <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
-                    <ul class="nav-dropdown-items">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?status=progress"><i class="icon-puzzle"></i> تحتاج مراجعة</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="{{ route('supervisor.tickets.index') }}"><i class="icon-puzzle"></i> كل التذاكر</a>
-                       </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('supervisor.profiles.index') }}"><i class="icon-user"></i> ملفات الزبائن </a>
-                </li>
+                     <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-puzzle"></i> التذاكر</a>
+                     <ul class="nav-dropdown-items">
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('supervisor.tickets.index') }}?status=progress"><i
+                                     class="icon-puzzle"></i> تحتاج مراجعة</a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('supervisor.tickets.index') }}"><i
+                                     class="icon-puzzle"></i> كل التذاكر</a>
+                         </li>
+                     </ul>
+                 </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href="{{ route('supervisor.profiles.index') }}"><i class="icon-user"></i>
+                         ملفات الزبائن </a>
+                 </li>
 
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link" href="{{ route('supervisor.users.index') }}"><i class="icon-user"></i>
-                        المستخدمين</a>
+                 <li class="nav-item nav-dropdown">
+                     <a class="nav-link" href="{{ route('supervisor.users.index') }}"><i class="icon-user"></i>
+                         المستخدمين</a>
 
-                </li>
+                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('supervisor.log') }}"><i class="icon-magnifier"></i>
-                        سجل العمليات </a>
-                </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href="{{ route('supervisor.log') }}"><i class="icon-magnifier"></i>
+                         سجل العمليات </a>
+                 </li>
                  <li class="nav-title">
                      Extras
                  </li>
 
                  <li class="nav-item">
-                    <a class="nav-link" href="{{ route('supervisor.myProfile') }}"><i class="icon-lock"></i> الملف الشخصي </a>
-                </li>
+                     <a class="nav-link" href="{{ route('supervisor.myProfile') }}"><i class="icon-lock"></i> الملف
+                         الشخصي </a>
+                 </li>
              </ul>
          </nav>
      </div>

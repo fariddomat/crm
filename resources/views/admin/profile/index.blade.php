@@ -45,6 +45,7 @@
                             <table class="table table-striped ">
                                 <thead>
                                     <tr>
+                                        <th>الرقم الجامعي</th>
                                         <th>الاسم</th>
                                         <th>عدد التذاكر</th>
                                         <th>التفاصيل</th>
@@ -53,6 +54,7 @@
                                 <tbody>
                                     @foreach ($profiles as $profile)
                                         <tr>
+                                            <td>{{ $profile->aou_number }}</td>
                                             <td>{{ $profile->first_name }} {{ $profile->last_name }}</td>
                                             <td>{{ $profile->tickets->count() }}</td>
                                             <td>

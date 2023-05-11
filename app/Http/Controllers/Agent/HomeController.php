@@ -20,11 +20,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $tickets = Ticket::count();
-        $opendTickets = Ticket::where('status', 'open')->count();
-        $myTickets = Ticket::where('agent_id', auth()->id())->count();
-        $customers = Profile::count();
-        return view('agent.index', compact('tickets', 'opendTickets', 'myTickets', 'customers'));
+        return view('agent.index');
     }
     public function myProfile()
     {
@@ -59,7 +55,10 @@ class HomeController extends Controller
 
     public function log()
     {
-        $logs = TicketLog::whenSearch(request()->search)->orderBy('ticket_id')->with(['ticket', 'user'])->paginate(10);
+        $logs = TicketLog::whenSearch(request()->search)
+        ->orderBy('ticket_id')
+        ->with(['ticket', 'user'])
+        ->paginate(10);
         return view('agent.log', compact('logs'));
     }
 }

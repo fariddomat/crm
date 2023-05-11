@@ -18,9 +18,9 @@ class CreateProfilesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('id_number')->nullable();
+            $table->string('id_number')->nullable();
             $table->string('phone_number');
-            $table->integer('aou_number');
+            $table->string('aou_number');
             $table->string('nationality')->nullable();
             $table->string('email');
             $table->unsignedBigInteger('college_name');

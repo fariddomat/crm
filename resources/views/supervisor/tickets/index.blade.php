@@ -2,6 +2,61 @@
 @section('title')
     Tickets
 @endsection
+@section('styles')
+    <link href="{{ asset('dashboard/css/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/css/removeSortingDataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/css/datatablesStyles.css') }}" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+@endsection
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.min.js"></script>
+    <!-- JS -->
+
+
+    <script src="{{ asset('dashboard/js/datatables.min.js') }}" defer></script>
+    <!-- DataTables -->
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js" defer></script>
+
+    <!-- Buttons -->
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" defer>
+    </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js" defer></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js" defer></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js" defer></script>
+
+    <!-- JSZip -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" defer></script>
+
+    <!-- pdfmake -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js" defer>
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js" defer></script>
+
+    <!-- html2canvas -->
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script defer>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: ['print',
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        customize: function(xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                    $('sheet', sheet).attr('rightToLeft', 'true');
+                }
+                    }
+                ]
+            });
+        });
+    </script>
+@endpush
 @section('content')
     <main class="main">
 
@@ -43,9 +98,12 @@
                                 <div class="form-group">
                                     <select name="status" class="form-control">
                                         <option value="">الحالة</option>
-                                        <option value="open" {{ request()->status == 'open' ? 'selected' : '' }}>مفتوحة</option>
-                                        <option value="progress" {{ request()->status == 'progress' ? 'selected' : '' }}>في تقدم</option>
-                                        <option value="closed" {{ request()->status == 'closed' ? 'selected' : '' }}>مغلقة</option>
+                                        <option value="open" {{ request()->status == 'open' ? 'selected' : '' }}>مفتوحة
+                                        </option>
+                                        <option value="progress" {{ request()->status == 'progress' ? 'selected' : '' }}>في
+                                            تقدم</option>
+                                        <option value="closed" {{ request()->status == 'closed' ? 'selected' : '' }}>مغلقة
+                                        </option>
 
                                     </select>
                                 </div>
@@ -66,7 +124,7 @@
                             <i class="fa fa-align-justify"></i> التذاكر
                         </div>
                         <div class="card-block table-responsive">
-                            <table class="table table-striped ">
+                            <table id="dataTable" class="table table-striped ">
                                 <thead>
                                     <tr>
                                         <th>الاسم</th>
@@ -83,19 +141,23 @@
                                 <tbody>
                                     @foreach ($tickets as $ticket)
                                         <tr>
-                                            <td><a href="{{ route('supervisor.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</a></td>
+                                            <td><a href="{{ route('supervisor.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }}
+                                                    {{ $ticket->profile->last_name }}</a></td>
                                             <td>{{ $ticket->ticket_type->name }}</td>
                                             <td>
                                                 @if ($ticket->agent)
-                                                {{ $ticket->agent->name }}
-                                            @else
-                                            -----
-                                            @endif</td>
-                                            <td>@if ($ticket->back_office)
-                                                {{ $ticket->back_office->name }}
-                                            @else
-                                            -----
-                                            @endif</td>
+                                                    {{ $ticket->agent->name }}
+                                                @else
+                                                    -----
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($ticket->back_office)
+                                                    {{ $ticket->back_office->name }}
+                                                @else
+                                                    -----
+                                                @endif
+                                            </td>
                                             @if ($ticket->ticket_classification)
                                                 <td>{{ $ticket->ticket_classification->name }}</td>
                                             @else
@@ -129,9 +191,7 @@
                             @if ($tickets->count() == 0)
                                 <h3>لايوجد بيانات لعرضها</h3>
                             @endif
-                            <ul class="pagination">
-                                {{ $tickets->links() }}
-                            </ul>
+
                         </div>
                     </div>
                 </div>

@@ -30,10 +30,10 @@ class TicketController extends Controller
         if ($request->id) {
             $user = User::find($request->id);
             if ($user->hasRole('agent')) {
-                $tickets = Ticket::where('agent_id', $request->id)->latest()->paginate(10);
+                $tickets = Ticket::where('agent_id', $request->id)->latest()->get();
                 // dd($tickets);
             } elseif ($user->hasRole('back_office')) {
-                $tickets = Ticket::where('back_office_id', $request->id)->latest()->paginate(10);
+                $tickets = Ticket::where('back_office_id', $request->id)->latest()->get();
             } else {
                 abort(404);
             }
@@ -41,7 +41,7 @@ class TicketController extends Controller
 
             $tickets = Ticket::whenSearch(request()->search)
                 ->whenType(request()->type)
-                ->whenStatus(request()->status)->latest()->paginate(10);
+                ->whenStatus(request()->status)->latest()->get();
         }
 
         $types = TicketType::all();

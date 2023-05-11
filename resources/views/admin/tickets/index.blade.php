@@ -66,69 +66,69 @@
                         <i class="fa fa-align-justify"></i> التذاكر
                     </div>
                     <div class="card-block table-responsive">
-                        <table class="table table-striped ">
-                            <thead>
-                                <tr>
-                                    <th>الاسم</th>
-                                    <th>نوع التذكرة</th>
-                                    <td>Agent</td>
-                                    <td>Back office</td>
-                                    <th>التصنيف</th>
-                                    <th>تاريخ الفتح</th>
-                                    <th>تاريخ الاغلاق</th>
-                                    <th>الحالة</th>
-                                    <th>التحكم</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($tickets as $ticket)
-                                <tr>
-                                    <td><a href="{{ route('admin.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</a></td>
-                                    <td>{{ $ticket->ticket_type->name }}</td>
-                                    <td>
-                                        @if ($ticket->agent)
-                                        {{ $ticket->agent->name }}
-                                    @else
-                                    -----
-                                    @endif</td>
-                                    <td>@if ($ticket->back_office)
-                                        {{ $ticket->back_office->name }}
-                                    @else
-                                    -----
-                                    @endif</td>
-                                    @if ($ticket->ticket_classification)
-                                   <td>{{ $ticket->ticket_classification->name }}</td>
-                                   @else
-                                   <td>-----</td>
-                                   @endif
-                                    <td>{{ $ticket->created_at->diffForHumans() }}</td>
-                                    <td>@if ($ticket->status=='closed')
-                                        {{ $ticket->updated_at->diffForHumans() }}
-                                    @else
-                                        ----------
-                                    @endif</td>
-                                    <td>
-                                        <span class="tag @if ($ticket->status == 'open')
-                                        tag-success
-                                        @elseif ($ticket->status == 'progress')
-                                        tag-warning
-                                        @else
-                                        tag-danger
-                                        @endif">{{ $ticket->status }}</span>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('admin.tickets.edit', $ticket->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-cog"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
+<table class="table table-striped ">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>نوع التذكرة</th>
+            <td>Agent</td>
+            <td>Back office</td>
+            <th>التصنيف</th>
+            <th>تاريخ الفتح</th>
+            <th>تاريخ الاغلاق</th>
+            <th>الحالة</th>
+            <th>التحكم</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($tickets as $ticket)
+        <tr>
+            <td><a href="{{ route('admin.profiles.show', $ticket->profile->id) }}">{{ $ticket->profile->first_name }} {{ $ticket->profile->last_name }}</a></td>
+            <td>{{ $ticket->ticket_type->name }}</td>
+            <td>
+                @if ($ticket->agent)
+                {{ $ticket->agent->name }}
+            @else
+            -----
+            @endif</td>
+            <td>@if ($ticket->back_office)
+                {{ $ticket->back_office->name }}
+            @else
+            -----
+            @endif</td>
+            @if ($ticket->ticket_classification)
+            <td>{{ $ticket->ticket_classification->name }}</td>
+            @else
+            <td>-----</td>
+            @endif
+            <td>{{ $ticket->created_at->diffForHumans() }}</td>
+            <td>@if ($ticket->status=='closed')
+                {{ $ticket->updated_at->diffForHumans() }}
+            @else
+                ----------
+            @endif</td>
+            <td>
+                <span class="tag @if ($ticket->status == 'open')
+                tag-success
+                @elseif ($ticket->status == 'progress')
+                tag-warning
+                @else
+                tag-danger
+                @endif">{{ $ticket->status }}</span>
+            </td>
+            <td>
+                <a href="{{ route('admin.tickets.edit', $ticket->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-cog"></i></a>
+            </td>
+        </tr>
+        @endforeach
 
-                            </tbody>
-                        </table>@if ($tickets->count()==0)
-                                <h3>لايوجد بيانات لعرضها</h3>
-                                @endif
-                        <ul class="pagination">
-                            {{$tickets->links()}}
-                        </ul>
+    </tbody>
+</table>@if ($tickets->count()==0)
+        <h3>لايوجد بيانات لعرضها</h3>
+        @endif
+<ul class="pagination">
+    {{$tickets->links()}}
+</ul>
                     </div>
                 </div>
             </div>

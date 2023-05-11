@@ -69,20 +69,20 @@
                                             </div>
                                         </div>
 
-                                        @if ($ticket->status=='progress')
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label" for="">تحديد Back Office</label>
-                                            <div class="col-md-8">
-                                                <select name="back_office_id" id="" class="form-control">
-                                                    @foreach ($back_offices as $item)
-                                                    <option value="{{ $item->id }}" @if ($ticket->back_office_id ==$item->id)
-                                                        selected
-                                                    @endif>{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        @endif
+@if ($ticket->status=='progress')
+<div class="form-group row">
+    <label class="col-md-3 form-control-label" for="">تحديد Back Office</label>
+    <div class="col-md-8">
+        <select name="back_office_id" id="" class="form-control">
+            @foreach ($back_offices as $item)
+            <option value="{{ $item->id }}" @if ($ticket->back_office_id ==$item->id)
+                selected
+            @endif>{{ $item->name }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+@endif
 
 
                                         <div class="form-group row">

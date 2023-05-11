@@ -51,7 +51,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="">الاسم الأول</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->first_name }}" type="text" id="first_name"
+                                            <input value="{{ old('first_name', $profile->first_name )}}" type="text" id="first_name"
                                                 name="first_name" class="form-control">
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="">الاسم الثاني</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->last_name }}" type="text" id="last_name"
+                                            <input value="{{old('last_name',$profile->last_name)   }}" type="text" id="last_name"
                                                 name="last_name" class="form-control">
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                         <label class="col-md-2 form-control-label" for="">رقم الهوية
                                             (اختياري)</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->id_number }}" type="text" id="id_number"
+                                            <input value="{{old('id_number', $profile->id_number)  }}" type="text" id="id_number"
                                                 name="id_number" class="form-control">
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="">رقم الجامعي</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->aou_number }}" type="text" id="aou_number"
+                                            <input value="{{ old('aou_number',$profile->aou_number)  }}" type="text" id="aou_number"
                                                 name="aou_number" class="form-control">
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="">الجنسية (اختياري)</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->nationality }}" type="text" id="nationality"
+                                            <input value="{{ old('nationality',$profile->nationality)  }}" type="text" id="nationality"
                                                 name="nationality" class="form-control">
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                     <div class="form-group row">
                                         <label class="col-md-2 form-control-label" for="">البريد الإلكتروني</label>
                                         <div class="col-md-8">
-                                            <input value="{{ $profile->email }}" type="email" id="email"
+                                            <input value="{{ old('email',$profile->email)  }}" type="email" id="email"
                                                 name="email" class="form-control">
                                         </div>
                                     </div>

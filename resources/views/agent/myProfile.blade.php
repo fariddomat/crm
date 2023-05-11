@@ -44,15 +44,18 @@
                                 <input type="email" class="form-control" name="email" id="email" value="{{ old('email',$user->email) }}"
                                     aria-describedby="helpId" placeholder="">
                             </div>
-                            <div class="form-group">
-                                <label for="password">كلمة السر</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder=""  autocomplete="new-password">
-                            </div>
-                            <div class="form-group">
-                                <label for="password_c">تأكيد كلمة السر</label>
-                                <input type="password" class="form-control" name="password_confirmation" id="password_c"
-                                autocomplete="new-password">
-                            </div>
+<div class="form-group">
+    <label for="password">كلمة السر</label>
+    <input type="password" class="form-control"
+    name="password" id="password" placeholder=""
+    autocomplete="new-password">
+</div>
+<div class="form-group">
+    <label for="password_c">تأكيد كلمة السر</label>
+    <input type="password" class="form-control"
+    name="password_confirmation" id="password_c"
+    autocomplete="new-password">
+</div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>
                                     تعديل</button>

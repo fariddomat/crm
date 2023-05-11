@@ -76,13 +76,18 @@ class TicketController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'phone_number' => 'required|unique:profiles,phone_number',
-            'aou_number' => 'required',
+            'aou_number' => 'required|numeric|unique:profiles,aou_number',
             'email' => 'required|email',
             'college_name' => 'required',
             'specialization' => 'required',
             'branch_name' => 'required',
             'language' => 'required',
         ]);
+        if($request->id_number){
+            $request->validate([
+            'id_number' => 'sometimes|numeric|unique:profiles,id_number',
+            ]);
+        }
         $profile = Profile::create($request->except('ticket_type_id'));
         $profile_id = $profile->id;
         $ticket_type_id = $request->ticket_type_id;
@@ -93,17 +98,24 @@ class TicketController extends Controller
 
     public function newTicketOldUser(Request $request)
     {
+        $profile = Profile::find($request->profile_id);
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'aou_number' => 'required',
+
+            'aou_number'=>'required|numeric|unique:profiles,aou_number,' . $profile->id,
             'email' => 'required|email',
             'college_name' => 'required',
             'specialization' => 'required',
             'branch_name' => 'required',
             'language' => 'required',
         ]);
-        $profile = Profile::find($request->profile_id);
+        if($request->id_number){
+            $request->validate([
+            'id_number' => 'sometimes|numeric|unique:profiles,id_number,'. $profile->id,
+            ]);
+        }
         if ($profile) {
             $profile->update($request->except('ticket_type_id', 'profile_id'));
 
@@ -149,16 +161,16 @@ class TicketController extends Controller
                 ]);
             }
         }
-        TicketLog::log($ticket->id, 'تم فتح التذكرة ');
-        session()->flash('success', 'تم الحفظ بنجاح !');
-        try {
+TicketLog::log($ticket->id, 'تم فتح التذكرة ');
+session()->flash('success', 'تم الحفظ بنجاح !');
+try {
 
-            $ticket = Ticket::find($ticket->id);
-            MailNotify::notify($ticket);
-            TicketLog::log($ticket->id, 'تم ارسال الايميل ');
-        } catch (\Throwable $th) {
-            TicketLog::log($ticket->id, 'لم يتم ارسال الايميل ');
-        }
+    $ticket = Ticket::find($ticket->id);
+    MailNotify::notify($ticket);
+    TicketLog::log($ticket->id, 'تم ارسال الايميل ');
+} catch (\Throwable $th) {
+    TicketLog::log($ticket->id, 'لم يتم ارسال الايميل ');
+}
         if ($request->ticket_type_id == '3') {
             $ticket->status = 'closed';
             $ticket->save();
