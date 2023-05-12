@@ -91,9 +91,20 @@
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">مصدر التذكرة</label>
                                             <div class="col-md-8">
-                                                <input type="text"  id="ticket_source" name="ticket_source"
-                                                    class="form-control" value="{{ $ticket->ticket_source }}" disabled>
-                                            </div>
+                                                <select name="ticket_source" class="form-control" id="">
+                                                    <option value="البريد" @if ($ticket->ticket_source == 'البريد')
+                                                        selected
+                                                    @endif>البريد</option>
+                                                    <option value="زيارة لمركز الجامعة" @if ($ticket->ticket_source == 'زيارة لمركز الجامعة')
+                                                        selected
+                                                    @endif>زيارة لمركز الجامعة</option>
+                                                    <option value="الهاتف" @if ($ticket->ticket_source == 'الهاتف')
+                                                        selected
+                                                    @endif>الهاتف</option>
+                                                    <option value="واتساب" @if ($ticket->ticket_source == 'واتساب')
+                                                        selected
+                                                    @endif>واتساب</option>
+                                                </select>   </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3 form-control-label" for="">ملاحظات</label>
